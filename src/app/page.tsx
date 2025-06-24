@@ -8,7 +8,7 @@ import { IntroduceSection } from "@components/landingPage/web/IntroduceSection.t
 import { MobileLandingPage } from "@components/landingPage/mobile/MobileLandingPage";
 import { useMobileStore } from "@store/useMobileStore.ts";
 
-export function LandingPage() {
+export default function LandingPage() {
 	const { isMobile } = useMobileStore();
 
 	return isMobile ? (
@@ -30,5 +30,3 @@ const PageContainer = styled.div`
 	flex-direction: column;
 	gap: 60px;
 `;
-
-export default LandingPage;
