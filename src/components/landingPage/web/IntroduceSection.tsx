@@ -7,7 +7,6 @@ import styled from "@emotion/styled";
 import { modalData } from "@components/common/modal/modalGuide-data";
 import { useState, useEffect } from "react";
 import { ModalGuide } from "@components/common/modal";
-import type { Swiper as SwiperType } from "swiper";
 
 import iconHowToUse from "@images/landingPage/icon-howToUse.png";
 import iconRule from "@images/landingPage/icon-rule.png";
