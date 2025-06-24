@@ -6,7 +6,7 @@ export function MobileLandingPage() {
 	return (
 		<PageContainer>
 			<MobileComponents.MobileTitleSection />
-			<MobileComponents.MobileIntroduceSection isMobile={true} />
+			<MobileComponents.MobileIntroduceSection />
 			<MobileComponents.MobilePoomCounter />
 			<MobileComponents.MobileProfilesSection />
 			{/* <Footer /> */}
