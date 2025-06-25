@@ -1,27 +1,27 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, { AxiosInstance } from "axios";
 
 const instance: AxiosInstance = axios.create({
-	baseURL: process.env.NEXT_PUBLIC_POOMASI_BACKEND_BASE_URL,
-	timeout: 3000,
+  baseURL: process.env.NEXT_PUBLIC_POOMASI_BACKEND_BASE_URL,
+  timeout: 3000,
 });
 
 instance.interceptors.request.use((config) => {
-	return config;
+  return config;
 });
 
 instance.interceptors.response.use(
-	(response) => {
-		return response;
-	},
-	(error) => {
-		return Promise.reject(error);
-	}
+  (response) => {
+    return response;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
 );
 
-export default async function <T>(args: AxiosRequestConfig): Promise<T> {
+/*export default async function <T>(args: AxiosRequestConfig): Promise<T> {
 	const { data } = await instance(args);
 	return data;
-}
+}*/
 
 /*
 에러메세지:

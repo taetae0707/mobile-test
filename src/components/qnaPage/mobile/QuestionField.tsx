@@ -27,7 +27,7 @@ export function QuestionField() {
   const keyboardHeight = useKeyboardHeight(isMobile);
 
   const params = useParams(); // Next.js 방식
-  const id = params.id as string; //params.id는 항상 string | undefined
+  const id = params?.nickname as string; //params.id는 항상 string | undefined
 
   const { setSuccessToastMessage, setErrorToastMessage } =
     useToastMessageStore();

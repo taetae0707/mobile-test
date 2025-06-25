@@ -6,5 +6,4 @@ export * from "@hooks/qnaPage/useMentoProfile";
 export * from "@hooks/qnaPage/useQnaList";
 export * from "@hooks/qnaPage/useQnaReply";
 export * from "@hooks/qnaPage/useQuestionEdit";
-export * from "@hooks/qnaPage/useQuestionList";
 export * from "@hooks/qnaPage/useIsOwner";
