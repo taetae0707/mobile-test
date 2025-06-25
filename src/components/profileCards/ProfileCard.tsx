@@ -118,7 +118,7 @@ const Container = styled(Card, {
     pointer-events: none;
   `} @media (
 	max-width: 1024px) {
-		height: 50%;
+		height: 80%;
 		scroll-snap-align: start;
 		/* flex: 0 0 80%; */
 		flex-direction: row;
