@@ -51,6 +51,13 @@ export function QuestionField() {
 			setQuestionText(event.target.value);
 		}
 	};
+
+	const handlePortfolioLinkChange = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		setPortfolioLink(event.target.value);
+	};
+
 	//비밀 질문 여부 체크
 	const handleIsSecretChange = () => {
 		setIsSecret((prev: boolean) => !prev);
@@ -146,7 +153,7 @@ export function QuestionField() {
 				<PortfolioInput
 					type="url"
 					value={portfolioLink}
-					onChange={(e) => setPortfolioLink(e.target.value)}
+					onChange={handlePortfolioLinkChange}
 					placeholder="포트폴리오 URL을 입력하세요 (선택)"
 				/>
 				<QuestionOption>

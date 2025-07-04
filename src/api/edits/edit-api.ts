@@ -3,10 +3,15 @@ import { PostQnaAnswerResponse } from "api/posts";
 
 export const EditsApi = {
 	//질문 수정용
-	patchQna: async (publicId: string, questionText: string): Promise<void> => {
+	patchQna: async (
+		publicId: string,
+		questionText: string,
+		portfolioLink: string
+	): Promise<void> => {
 		return await customAxios
 			.patch<void>(`/posts/qna/${publicId}`, {
 				question_text: questionText,
+				portfolio_link: portfolioLink,
 			})
 			.then((res) => res.data);
 	},

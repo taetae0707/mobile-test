@@ -20,7 +20,6 @@ export interface PostQnaParams {
 export type PostQnaAnswerResponse = {
 	public_id: string;
 	answer_text: string;
-	portfolio_link: string;
 };
 
 //질문 등록하는 API

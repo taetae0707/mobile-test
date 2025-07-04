@@ -10,6 +10,7 @@ import { getMobileVw } from "@utils/responsive";
 import { useQuestionEdit, useIsOwner } from "@hooks/qnaPage";
 import { EditButton } from "@components/common/button/editButton/EditButton";
 import { EditActionButtons } from "@components/common/button/editButton/EditActionButtons";
+import React, { useState } from "react";
 
 type QuestionCardProps = {
 	question: GetQnaListResponse;
@@ -51,6 +52,14 @@ export function QuestionCard({
 		handleSaveClick,
 	} = useQuestionEdit(question, onUpdateRequest);
 
+	const [editedPortfolioLink, setEditedPortfolioLink] = useState(
+		question.portfolio_link ?? ""
+	);
+
+	const handleSaveAll = () => {
+		handleSaveClick(editedPortfolioLink);
+	};
+
 	return (
 		<QnaCard className={"qna-card"}>
 			{isSecret && (
@@ -77,6 +86,12 @@ export function QuestionCard({
 						maxRows={50}
 						value={editedText}
 						onChange={handleTextChange}
+					/>
+					<PortfolioInput
+						type="url"
+						value={editedPortfolioLink}
+						onChange={(e) => setEditedPortfolioLink(e.target.value)}
+						placeholder="포트폴리오 URL을 입력하세요 (선택)"
 					/>
 
 					<EditActionButtons
@@ -300,4 +315,11 @@ const PortfolioUrlLink = styled.a`
 		color: #2bb09a;
 		text-decoration: underline;
 	}
+`;
+const PortfolioInput = styled.input`
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
 `;

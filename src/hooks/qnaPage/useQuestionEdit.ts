@@ -9,6 +9,9 @@ export function useQuestionEdit(
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedText, setEditedText] = useState(question.question_text);
 	const [showEditBtn, setShowEditBtn] = useState(false);
+	const [editedPortfolioLink, setEditedPortfolioLink] = useState(
+		question.portfolio_link ?? ""
+	);
 
 	const handleEditClick = () => {
 		setIsEditing(true);
@@ -24,9 +27,9 @@ export function useQuestionEdit(
 		setEditedText(e.target.value);
 	};
 
-	const handleSaveClick = async () => {
+	const handleSaveClick = async (portfolioLink: string) => {
 		try {
-			await EditsApi.patchQna(question.public_id, editedText);
+			await EditsApi.patchQna(question.public_id, editedText, portfolioLink);
 			setIsEditing(false);
 			if (onUpdateRequest) onUpdateRequest();
 		} catch (err) {
