@@ -85,10 +85,24 @@ export function QuestionCard({
 					/>
 				</>
 			) : (
-				<QnaContentArea
-					readOnly
-					value={question.question_text}
-				/>
+				<>
+					<QnaContentArea
+						readOnly
+						value={question.question_text}
+					/>
+					{question.portfolio_link && (
+						<PortfolioUrlLink
+							href={
+								question.portfolio_link.startsWith("http")
+									? question.portfolio_link
+									: `https://${question.portfolio_link}`
+							}
+							target="_blank"
+							rel="noopener noreferrer">
+							{question.portfolio_link}
+						</PortfolioUrlLink>
+					)}
+				</>
 			)}
 
 			<div style={{ display: "flex" }}>
@@ -272,4 +286,18 @@ const QnaContentDate = styled.div`
 	justify-content: center;
 	align-items: center;
 	color: ${colors.gray500};
+`;
+
+const PortfolioUrlLink = styled.a`
+	display: block;
+	margin-top: 8px;
+	color: #3ecdba;
+	font-size: 15px;
+	text-decoration: underline;
+	word-break: break-all;
+	cursor: pointer;
+	&:hover {
+		color: #2bb09a;
+		text-decoration: underline;
+	}
 `;

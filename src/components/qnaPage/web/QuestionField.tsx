@@ -14,7 +14,7 @@ import styled from "@emotion/styled";
 import { getMobileVw } from "@utils/responsive";
 import optionCheck from "@assets/images/option-check.svg";
 import { colors } from "@styles/foundation/color";
-import { useMobileStore } from "@store/useMobileStore.ts";
+// import { useMobileStore } from "@store/useMobileStore.ts";
 // import { useKeyboardHeight } from "@hooks/qnaPage/usekeyboardHeight";
 import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider";
 import { CommonSelect } from "@components/common/CommonSelect/CommonSelect";
@@ -25,7 +25,7 @@ import Image from "next/image";
 const QUESTION_MAX_LENGTH: number = 500;
 
 export function QuestionField() {
-	const { isMobile } = useMobileStore();
+	// const { isMobile } = useMobileStore();
 	// const keyboardHeight = useKeyboardHeight(isMobile);
 
 	const params = useParams(); // Next.js 방식
@@ -41,6 +41,7 @@ export function QuestionField() {
 		CareerYearType.ACADEMIC
 	);
 	const [isMajor, setIsMajor] = useState<boolean>(true);
+	const [portfolioLink, setPortfolioLink] = useState<string>("");
 
 	//질문글 등록
 	const handleQuestionTextChange = (
@@ -82,8 +83,17 @@ export function QuestionField() {
 			careerYear,
 			isMajor,
 			questionText,
+			portfolio_link: portfolioLink,
 		});
-	}, [id, isSecret, careerYear, isMajor, questionText, postQuestionToServer]);
+	}, [
+		id,
+		isSecret,
+		careerYear,
+		isMajor,
+		questionText,
+		portfolioLink,
+		postQuestionToServer,
+	]);
 
 	const handleQuestionButtonClick = useCallback(async () => {
 		if (!accessToken) {
@@ -132,6 +142,12 @@ export function QuestionField() {
 					value={questionText}
 					onChange={handleQuestionTextChange}
 					placeholder="타인에게 피해를 입힐 수 있는 과도한 질문은 자제해 주세요."
+				/>
+				<PortfolioInput
+					type="url"
+					value={portfolioLink}
+					onChange={(e) => setPortfolioLink(e.target.value)}
+					placeholder="포트폴리오 URL을 입력하세요 (선택)"
 				/>
 				<QuestionOption>
 					<QuestionFieldLength>
@@ -242,6 +258,21 @@ const QuestionTextField = styled.textarea`
 
 	@media (max-width: 1024px) {
 		border-width: 0 0 0 0;
+	}
+`;
+
+const PortfolioInput = styled.input`
+	width: 100%;
+	margin-top: 12px;
+	padding: 10px;
+	border: 1px solid #eaebed;
+	border-radius: 8px;
+	font-size: 16px;
+	color: #28292a;
+	background: #fff;
+
+	&::placeholder {
+		color: #9b9ea2;
 	}
 `;
 

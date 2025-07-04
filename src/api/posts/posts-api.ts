@@ -13,12 +13,14 @@ export interface PostQnaParams {
 	careerYear: CareerYearType;
 	isMajor: boolean;
 	questionText: string;
+	portfolio_link: string;
 }
 
 //질문에 대한 답변을 등록한 뒤 서버로부터 받을 응답 데이터 구조
 export type PostQnaAnswerResponse = {
 	public_id: string;
 	answer_text: string;
+	portfolio_link: string;
 };
 
 //질문 등록하는 API
@@ -29,6 +31,7 @@ export const PostsApi = {
 		careerYear,
 		isMajor,
 		questionText,
+		portfolio_link,
 	}: PostQnaParams) => {
 		return await customAxios.post<null>(PATH + "/qna", {
 			nickname,
@@ -36,6 +39,7 @@ export const PostsApi = {
 			career_year: careerYear,
 			is_major: isMajor,
 			question_text: questionText,
+			portfolio_link: portfolio_link,
 		});
 	},
 	/* postQna : 질문 등록하는 API/함수

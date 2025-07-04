@@ -40,7 +40,7 @@ export function QuestionField() {
 	);
 	const [isMajor, setIsMajor] = useState<boolean>(true);
 	const { setIsQuestionListFetched } = useDetailPageContext();
-
+	const [portfolioLink, setPortfolioLink] = useState<string>("");
 	//질문글 등록
 	const handleQuestionTextChange = (
 		event: React.ChangeEvent<HTMLTextAreaElement>
@@ -79,8 +79,17 @@ export function QuestionField() {
 			careerYear,
 			isMajor,
 			questionText,
+			portfolio_link: portfolioLink,
 		});
-	}, [id, isSecret, careerYear, isMajor, questionText, postQuestionToServer]);
+	}, [
+		id,
+		isSecret,
+		careerYear,
+		isMajor,
+		questionText,
+		portfolioLink,
+		postQuestionToServer,
+	]);
 
 	// 팁 !
 	// function 재랜더링 되지 않도록 함.
@@ -134,6 +143,12 @@ export function QuestionField() {
 					value={questionText}
 					onChange={handleQuestionTextChange}
 					placeholder="타인에게 피해를 입힐 수 있는 과도한 질문은 자제해 주세요."
+				/>
+				<PortfolioInput
+					type="url"
+					value={portfolioLink}
+					onChange={(e) => setPortfolioLink(e.target.value)}
+					placeholder="포트폴리오 URL을 입력하세요 (선택)"
 				/>
 				<QuestionOption>
 					<QuestionFieldLength>
@@ -315,5 +330,19 @@ const SelectContainer = styled.div`
 	background: #fff;
 	@media (max-width: 1024px) {
 		border: none;
+	}
+`;
+const PortfolioInput = styled.input`
+	width: 100%;
+	margin-top: 12px;
+	padding: 10px;
+	border: 1px solid #eaebed;
+	border-radius: 8px;
+	font-size: 16px;
+	color: #28292a;
+	background: #fff;
+
+	&::placeholder {
+		color: #9b9ea2;
 	}
 `;
