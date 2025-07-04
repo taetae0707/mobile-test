@@ -19,6 +19,7 @@ import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider
 import { CommonSelect } from "@components/common/CommonSelect/CommonSelect";
 import { usePostQuestion } from "api/posts/usePostQuestion";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 
 const QUESTION_MAX_LENGTH: number = 500;
 
@@ -141,7 +142,7 @@ export function QuestionField() {
 					<QuestionSecretOption onClick={handleIsSecretChange}>
 						<QuestionCheckbox>
 							{isSecret && (
-								<img
+								<Image
 									src={optionCheck}
 									alt="체크아이콘"
 								/>
@@ -286,6 +287,7 @@ const QuestionSecretOption = styled.div`
 	gap: 8px;
 	color: ${colors.gray500};
 	align-items: center;
+	position: relative;
 `;
 
 const QuestionCheckbox = styled.div`
@@ -295,6 +297,10 @@ const QuestionCheckbox = styled.div`
 	border-radius: 5px;
 	border: 1px solid #c5c8cd;
 	background: #ffffff;
+
+	img {
+		position: static !important; // 덮어쓰기
+	}
 `;
 
 const SelectContainer = styled.div`
