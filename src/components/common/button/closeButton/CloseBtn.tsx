@@ -13,7 +13,12 @@ type CloseButtonProps = {
 export const CloseButton = ({ onClick, style }: CloseButtonProps) => {
   return (
     <CloseBtn onClick={onClick} style={style}>
-      <Image src={"/images/button-close.svg"} alt="닫기 버튼" />
+      <Image
+        src={"/images/button-close.svg"}
+        width={14}
+        height={14}
+        alt="닫기 버튼"
+      />
     </CloseBtn>
   );
 };
