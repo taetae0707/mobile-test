@@ -78,13 +78,14 @@ export function QuestionField() {
 
 	const postQuestion = useCallback(() => {
 		if (!id) return;
+		console.log("postQuestion 호출됨. 최신 포트폴리오 링크:", portfolioLink);
 		postQuestionToServer({
 			nickname: id,
 			isSecret,
 			careerYear,
 			isMajor,
 			questionText,
-			portfolioLink,
+			portfolio_link: portfolioLink,
 		});
 	}, [
 		id,
@@ -108,7 +109,7 @@ export function QuestionField() {
 		}
 
 		// 질문 등록
-		await postQuestion();
+		postQuestion();
 	}, [accessToken, questionText, postQuestion, setErrorToastMessage]);
 
 	return (
@@ -149,6 +150,8 @@ export function QuestionField() {
 					type="url"
 					value={portfolioLink}
 					onChange={handlePortfolioLinkChange}
+					onBlur={(e) => setPortfolioLink(e.target.value)} // 추가
+					onInput={(e) => setPortfolioLink(e.currentTarget.value)} // 추가
 					placeholder="포트폴리오 URL을 입력하세요 (선택)"
 				/>
 				<QuestionOption>

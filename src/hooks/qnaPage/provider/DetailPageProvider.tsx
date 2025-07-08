@@ -46,7 +46,7 @@ export function DetailPageContextProvider({ children }: PropsWithChildren) {
 	// 강제 리렌더링을 위한 카운터
 	const [updateCounter, setUpdateCounter] = useState(0);
 
-	console.log(updateCounter);
+	// console.log(updateCounter);
 
 	// 디버그용 세터 함수 개선
 	const setPageLoading = useCallback((value: boolean) => {

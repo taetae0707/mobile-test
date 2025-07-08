@@ -166,7 +166,7 @@ export function QuestionField() {
 							{isSecret && (
 								<Image
 									src={optionCheck}
-									alt={""}
+									alt={"체크아이콘"}
 									fill
 								/>
 							)}
@@ -179,26 +179,45 @@ export function QuestionField() {
 			<QuestionBtnWrapper
 				// keyboardHeight={keyboardHeight}
 				style={{ marginLeft: "auto" }}>
-				<DebouncedButton
+				<StyledDebouncedButton
 					text={"질문 등록하기"}
 					onClick={() => handleQuestionButtonClick()}
 					variant="contained"
-					sx={{
-						height: "60px",
-						fontSize: "18px",
-						fontWeight: "700",
-						lineHeight: "150%",
-						padding: "0 20px",
-						borderRadius: "10px",
-						color: "white",
-						boxShadow: "none",
-						backgroundColor: "#3ecdba",
-					}}
+					// sx={{
+					// 	height: "60px",
+					// 	fontSize: "18px",
+					// 	fontWeight: "700",
+					// 	lineHeight: "150%",
+					// 	padding: "0 20px",
+					// 	borderRadius: "10px",
+					// 	color: "white",
+					// 	boxShadow: "none",
+					// 	backgroundColor: "#3ecdba",
+					// }}
 				/>
 			</QuestionBtnWrapper>
 		</QuestionSection>
 	);
 }
+
+const StyledDebouncedButton = styled(DebouncedButton)`
+	height: 60px;
+	width: auto;
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 150%;
+	padding: 0 20px;
+	border-radius: 10px;
+	color: white;
+	background-color: #3ecdba;
+
+	@media (max-width: 1024px) {
+		width: 100%;
+		box-shadow: none !important;
+		height: 48px;
+		padding: 16px 20px;
+	}
+`;
 
 const QuestionSection = styled.div`
 	display: flex;

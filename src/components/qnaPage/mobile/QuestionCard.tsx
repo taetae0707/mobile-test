@@ -56,10 +56,7 @@ export function QuestionCard({
 	);
 
 	const handleSaveAll = () => {
-		handleSaveClick({
-			question_text: editedText,
-			portfolio_link: editedPortfolioLink,
-		});
+		handleSaveClick(editedPortfolioLink);
 	};
 
 	return (

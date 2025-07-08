@@ -13,7 +13,8 @@ export interface PostQnaParams {
 	careerYear: CareerYearType;
 	isMajor: boolean;
 	questionText: string;
-	portfolio_link: string;
+	// portfolioLink: string;
+	portfolio_link?: string;
 }
 
 //질문에 대한 답변을 등록한 뒤 서버로부터 받을 응답 데이터 구조

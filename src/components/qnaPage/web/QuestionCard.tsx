@@ -95,7 +95,7 @@ export function QuestionCard({
 					/>
 
 					<EditActionButtons
-						onSave={handleSaveClick}
+						onSave={handleSaveAll}
 						onCancel={handleCancelClick}
 					/>
 				</>
