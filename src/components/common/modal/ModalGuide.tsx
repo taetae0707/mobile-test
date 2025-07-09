@@ -38,8 +38,8 @@ export function ModalGuide({ onClose, type }: GuideModalProps) {
   }, []);
   //swiper 등등
   const modal = modalData[type];
-  console.log("modal.type:", modal.type);
-  console.log("modal:", modal);
+  /*console.log("modal.type:", modal.type);
+  console.log("modal:", modal);*/
 
   // console.log("🔥 모달 타입 확인:", modal.type);
 

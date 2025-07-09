@@ -9,23 +9,23 @@ import { useToastMessageStore } from "@toast";
 import axios from "axios";
 
 type KakaoLoginRes = {
-	access_token: string;
-	refresh_token: string;
-	id_token: string;
-	refresh_token_expires_in: number;
-	expires_in: number;
+  access_token: string;
+  refresh_token: string;
+  id_token: string;
+  refresh_token_expires_in: number;
+  expires_in: number;
 };
 
 export default function KakaoLoginCallback() {
-	const { setaccessToken, setPublicId, setAccountType } = useAccountStore();
-	const { setErrorToastMessage } = useToastMessageStore();
-	const router = useRouter();
+  const { setaccessToken, setPublicId, setAccountType } = useAccountStore();
+  const { setErrorToastMessage } = useToastMessageStore();
+  const router = useRouter();
 
-	useEffect(() => {
-		const fetchToken = async () => {
-			try {
-				// URL에서 'code' 파라미터 추출
-				/* code란?
+  useEffect(() => {
+    const fetchToken = async () => {
+      try {
+        // URL에서 'code' 파라미터 추출
+        /* code란?
         - 사용자가 카카오 로그인 인증을 마치면 발급받는 일회용 인증 코드
         - 최초로 access token 등을 받기 위한 '교환권' 역할.
         
@@ -33,82 +33,82 @@ export default function KakaoLoginCallback() {
         ② 카카오가 redirect_uri로 이동시키면서 code를 URL에 붙여줌 →
         ③ 프론트/서버가 이 코드를 사용해서 access_token 요청
         */
-				const search = new URLSearchParams(window.location.search);
-				/*URLSearchParams란?
+        const search = new URLSearchParams(window.location.search);
+        /*URLSearchParams란?
         window.location.search
         → 현재 브라우저 주소창의 URL에서 ? 뒤의 모든 쿼리 파라미터를 문자열로 반환
 
         new URLSearchParams(window.location.search)
         → 그 문자열을 key-value 형식으로 쉽게 꺼낼 수 있게 변환
         */
-				const code = search.get("code");
-				const grantType = "authorization_code";
+        const code = search.get("code");
+        const grantType = "authorization_code";
 
-				// 1. 카카오에 토큰 요청: access_token, id_token 받기
-				const response = await axios.post<KakaoLoginRes>(
-					"https://kauth.kakao.com/oauth/token",
-					{
-						grant_type: grantType,
-						client_id: REST_API_KEY,
-						redirect_uri: REDIRECT_URI,
-						code: code!,
-					},
-					{
-						//서버에 데이터를 어떤 형식으로 보낼지 명시
-						headers: {
-							"Content-type": "application/x-www-form-urlencoded;charset=utf-8",
-						},
-					}
-				);
+        // 1. 카카오에 토큰 요청: access_token, id_token 받기
+        const response = await axios.post<KakaoLoginRes>(
+          "https://kauth.kakao.com/oauth/token",
+          {
+            grant_type: grantType,
+            client_id: REST_API_KEY,
+            redirect_uri: REDIRECT_URI,
+            code: code!,
+          },
+          {
+            //서버에 데이터를 어떤 형식으로 보낼지 명시
+            headers: {
+              "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+            },
+          },
+        );
 
-				// 2. 카카오 id_token을 백엔드로 전달
-				const idToken = response.data.id_token; //OAuth에서 발급하는 JWT(JSON Web Token) 형태의 '유저 인증 정보 토큰'
-				const kakaoLoginResponse = await RequestApi.accounts.postKakaoLogin({
-					id_token: idToken, //OAuth에서 발급하는 JWT(JSON Web Token) 형태의 '유저 인증 정보 토큰'
-					device_token: null,
-				});
+        // 2. 카카오 id_token을 백엔드로 전달
+        const idToken = response.data.id_token; //OAuth에서 발급하는 JWT(JSON Web Token) 형태의 '유저 인증 정보 토큰'
+        const kakaoLoginResponse = await RequestApi.accounts.postKakaoLogin({
+          id_token: idToken, //OAuth에서 발급하는 JWT(JSON Web Token) 형태의 '유저 인증 정보 토큰'
+          device_token: null,
+        });
 
-				// 3. 백엔드 응답에서 토큰 및 ID 추출
-				const accessToken = kakaoLoginResponse.data.access_token;
-				const publicId = kakaoLoginResponse.data.public_id;
+        // 3. 백엔드 응답에서 토큰 및 ID 추출
+        const accessToken = kakaoLoginResponse.data.access_token;
+        const publicId = kakaoLoginResponse.data.public_id;
 
-				// 4. 토큰 디코딩으로 account_type 추출
-				const payloadBase64 = accessToken.split(".")[1];
-				const decodedPayload = JSON.parse(atob(payloadBase64));
-				const accountTypeFromToken = decodedPayload.account_type;
+        // 4. 토큰 디코딩으로 account_type 추출
+        const payloadBase64 = accessToken.split(".")[1];
+        const decodedPayload = JSON.parse(atob(payloadBase64));
+        const accountTypeFromToken = decodedPayload.account_type;
 
-				// localStorage에 사용자 정보 저장
-				setPublicId(publicId);
-				setaccessToken(accessToken);
-				setAccountType(accountTypeFromToken);
+        // localStorage에 사용자 정보 저장
+        setPublicId(publicId);
+        setaccessToken(accessToken);
+        setAccountType(accountTypeFromToken);
 
-				//로그인 로딩시간 측정용
-				const loginStart = Number(localStorage.getItem("login_start_time"));
-				const loginEnd = Date.now();
-				console.log("로그인 처리 시간(ms):", loginEnd - loginStart);
+        //로그인 로딩시간 측정용
+        const loginStart = Number(localStorage.getItem("login_start_time"));
+        const loginEnd = Date.now();
+        /*console.log("로그인 처리 시간(ms):", loginEnd - loginStart);*/
 
-				// 로그인 전 방문했던 URL 확인 후 이동 (없으면 기본값)
-				const beforeLoginUrl = localStorage.getItem("before_login_url");
-				localStorage.removeItem("before_login_url");
-				router.push(beforeLoginUrl ?? "/");
-			} catch (error) {
-				setErrorToastMessage(
-					"로그인 도중 문제가 발생하였습니다.\n 잠시 후 다시 시도해주세요."
-				);
-				console.log(error);
-				router.push("/");
-			}
-		};
-		fetchToken();
-	}, [
-		setaccessToken,
-		setPublicId,
-		setAccountType,
-		setErrorToastMessage,
-		router,
-	]);
+        // 로그인 전 방문했던 URL 확인 후 이동 (없으면 기본값)
+        const beforeLoginUrl = localStorage.getItem("before_login_url");
+        localStorage.removeItem("before_login_url");
+        router.push(beforeLoginUrl ?? "/");
+      } catch (error) {
+        setErrorToastMessage(
+          "로그인 도중 문제가 발생하였습니다.\n 잠시 후 다시 시도해주세요.",
+        );
+        /*console.log(error);*/
+        router.push("/");
+      }
+    };
+    fetchToken();
+  }, [
+    setaccessToken,
+    setPublicId,
+    setAccountType,
+    setErrorToastMessage,
+    router,
+  ]);
 
-	return null;
+  return null;
 }
 
 /*
