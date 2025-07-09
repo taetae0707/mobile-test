@@ -60,10 +60,10 @@ export default function QnaPageContent() {
 
     if (switchStart) {
       const switchEnd = Date.now();
-      console.log(
+      /*console.log(
         "프로필 카드 클릭 → 페이지 도착까지 걸린 시간(ms):",
         switchEnd - switchStart,
-      );
+      );*/
       localStorage.removeItem("QnaPage_start_time");
     }
   }, []);
