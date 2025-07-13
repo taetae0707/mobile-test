@@ -16,16 +16,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={`${suitFont.variable} ${suitFont.className}`}>
+      <meta charSet="utf-8" />
       <body>
-        <meta charSet="utf-8" />
-        <body>
-          {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? (
-            <GoogleAnalytics
-              trackingId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}
-            />
-          ) : null}
-          <main>{children}</main>
-        </body>
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? (
+          <GoogleAnalytics
+            trackingId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}
+          />
+        ) : null}
+
         <main>
           <CommonProvider>
             <ServiceWorkerUnregister />
