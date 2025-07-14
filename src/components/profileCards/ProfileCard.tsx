@@ -2,7 +2,7 @@
 
 import styled from "@emotion/styled";
 import isPropValid from "@emotion/is-prop-valid";
-import Card from "@mui/material/Card";
+import { Card } from "@mui/material";
 // import { CardActionArea } from '@mui/material'
 // import { useNavigate } from 'react-router-dom'
 import { useProfileCard } from "@hooks/landingPage/useProfileCard";
