@@ -8,6 +8,18 @@ const nextConfig = {
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
 
+  // 이미지 최적화 관련 설정 추가
+  images: {
+    // SVG 이미지 형식을 허용 (보안 위험이 있으므로 'dangerous' 접두어 사용)
+    dangerouslyAllowSVG: true,
+
+    // 이미지가 인라인 표시되지 않고 다운로드되도록 설정
+    contentDispositionType: "attachment",
+
+    // SVG 파일에 대한 보안 정책 설정 (XSS 공격 방지)
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
+
   // webpack을 compiler 밖으로 이동
   webpack: (config) => {
     config.optimization.minimizer.push(
