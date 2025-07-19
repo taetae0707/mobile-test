@@ -14,22 +14,9 @@ export const metadata: Metadata = {
 	title: "품앗이, 대학생 전문 상담 멘토링",
 	description: "대학생 전문 상담 멘토링, 품앗이입니다.",
 	viewport: "width=device-width, initial-scale=1.0",
-	openGraph: {
-		type: "website",
-		title: "대학생 전문 상담 멘토링, 품앗이",
-		description: "대학생 전문 상담 멘토링, 품앗이입니다.",
-		url: "https://www.poomasi.kr/",
-		images: [
-			{
-				url: "https://www.poomasi.kr/poomasi_og_tag.png",
-				width: 800,
-				height: 400,
-			},
-		],
-	},
 	icons: {
-		icon: "/favicon.svg",
-		shortcut: "/favicon.",
+		icon: "/favicon.png",
+		shortcut: "/favicon.png",
 		apple: "/apple-touch-icon.png",
 	},
 	appleWebApp: {
