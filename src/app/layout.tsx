@@ -11,6 +11,7 @@ import GoogleAnalytics from "@components/common/googleAnalytics/GoogleAnalytics.
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
+	metadataBase: new URL("https://www.poomasi.kr"),
 	title: "품앗이, 대학생 전문 상담 멘토링",
 	description: "대학생 전문 상담 멘토링, 품앗이입니다.",
 	viewport: "width=device-width, initial-scale=1.0",
@@ -48,7 +49,6 @@ export default function RootLayout({
 		<html
 			lang="ko"
 			className={`${suitFont.variable} ${suitFont.className}`}>
-			<head></head>
 			<body>
 				{process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? (
 					<GoogleAnalytics
