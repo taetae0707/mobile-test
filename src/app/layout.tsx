@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 		description: "대학생 전문 상담 멘토링, 품앗이입니다.",
 		images: [
 			{
-				url: "/opengraph-image.png",
+				url: "https://www.poomasi.kr/og-image.png",
 				width: 800,
 				height: 400,
 				alt: "품앗이 OG Image",

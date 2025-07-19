@@ -27,6 +27,10 @@ export default function robots(): MetadataRoute.Robots {
 					"/kakao-login-callback/", // 카카오 로그인 콜백
 				],
 			},
+			{
+				userAgent: ["kakaotalk"],
+				allow: "/",
+			},
 		],
 		sitemap: `${siteUrl}/sitemap.xml`,
 	};
