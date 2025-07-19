@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 			},
 		],
 		type: "website",
-		url: "https://www.poomasi.kr",
+		url: "https://www.poomasi.kr/",
 	},
 	appleWebApp: {
 		capable: true,
