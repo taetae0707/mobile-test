@@ -8,6 +8,35 @@ import { ServiceWorkerUnregister } from "../ServiceWorkerUnregister.tsx";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import GoogleAnalytics from "@components/common/googleAnalytics/GoogleAnalytics.tsx";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "품앗이, 대학생 전문 상담 멘토링",
+	description: "대학생 전문 상담 멘토링, 품앗이입니다.",
+	viewport: "width=device-width, initial-scale=1.0",
+	openGraph: {
+		type: "website",
+		title: "대학생 전문 상담 멘토링, 품앗이",
+		description: "대학생 전문 상담 멘토링, 품앗이입니다.",
+		url: "https://www.poomasi.kr/",
+		images: [
+			{
+				url: "https://www.poomasi.kr/poomasi_og_tag.png",
+				width: 800,
+				height: 400,
+			},
+		],
+	},
+	icons: {
+		icon: "/favicon.svg",
+		shortcut: "/favicon.",
+		apple: "/apple-touch-icon.png",
+	},
+	appleWebApp: {
+		capable: true,
+		statusBarStyle: "default",
+	},
+};
 
 export default function RootLayout({
 	children,
@@ -18,7 +47,12 @@ export default function RootLayout({
 		<html
 			lang="ko"
 			className={`${suitFont.variable} ${suitFont.className}`}>
-			<meta charSet="utf-8" />
+			<head>
+				<link
+					href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+					rel="stylesheet"
+				/>
+			</head>
 			<body>
 				{process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? (
 					<GoogleAnalytics

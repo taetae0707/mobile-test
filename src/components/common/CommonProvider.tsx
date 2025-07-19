@@ -8,7 +8,7 @@ import {
 import { globalTheme } from "@styles/global-theme.ts";
 import { ThemeProvider } from "@mui/material";
 import { GlobalStyle } from "@styles/GlobalStyle.tsx";
-import { Toast } from "@components/toast/Toast.tsx";
+import { Toast } from "@components/common/toast/Toast";
 import { useEffect, useState } from "react";
 import { useMobileStore } from "@store/useMobileStore.ts";
 
