@@ -34,12 +34,7 @@ export default function RootLayout({
 		<html
 			lang="ko"
 			className={`${suitFont.variable} ${suitFont.className}`}>
-			<head>
-				<link
-					href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-					rel="stylesheet"
-				/>
-			</head>
+			<head></head>
 			<body>
 				{process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? (
 					<GoogleAnalytics
