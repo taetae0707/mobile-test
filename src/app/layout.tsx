@@ -19,6 +19,20 @@ export const metadata: Metadata = {
 		shortcut: "/favicon.png",
 		apple: "/apple-touch-icon.png",
 	},
+	openGraph: {
+		title: "품앗이, 대학생 전문 상담 멘토링",
+		description: "대학생 전문 상담 멘토링, 품앗이입니다.",
+		images: [
+			{
+				url: "/opengraph-image.png",
+				width: 800,
+				height: 400,
+				alt: "품앗이 OG Image",
+			},
+		],
+		type: "website",
+		url: "https://www.poomasi.kr",
+	},
 	appleWebApp: {
 		capable: true,
 		statusBarStyle: "default",
