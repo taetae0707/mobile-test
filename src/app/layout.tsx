@@ -11,61 +11,59 @@ import GoogleAnalytics from "@components/common/googleAnalytics/GoogleAnalytics.
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-	metadataBase: new URL("https://www.poomasi.kr"),
-	title: "품앗이, 대학생 전문 상담 멘토링",
-	description: "대학생 전문 상담 멘토링, 품앗이입니다.",
-	viewport: "width=device-width, initial-scale=1.0",
-	icons: {
-		icon: "/favicon.png",
-		shortcut: "/favicon.png",
-		apple: "/apple-touch-icon.png",
-	},
-	openGraph: {
-		title: "품앗이, 대학생 전문 상담 멘토링",
-		description: "대학생 전문 상담 멘토링, 품앗이입니다.",
-		images: [
-			{
-				url: "https://www.poomasi.kr/og-image.png",
-				width: 800,
-				height: 400,
-				alt: "품앗이 OG Image",
-			},
-		],
-		type: "website",
-		url: "https://www.poomasi.kr/",
-	},
-	appleWebApp: {
-		capable: true,
-		statusBarStyle: "default",
-	},
+  metadataBase: new URL("https://www.poomasi.kr"),
+  title: "품앗이, 대학생 전문 상담 멘토링",
+  description: "대학생 전문 상담 멘토링, 품앗이입니다.",
+  viewport: "width=device-width, initial-scale=1.0",
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    title: "품앗이, 대학생 전문 상담 멘토링",
+    description: "대학생 전문 상담 멘토링, 품앗이입니다.",
+    images: [
+      {
+        url: "/poomasi_og_tag.png",
+        width: 800,
+        height: 400,
+        alt: "품앗이 OG Image",
+      },
+    ],
+    type: "website",
+    url: "https://www.poomasi.kr/",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+  },
 };
 
 export default function RootLayout({
-	children,
+  children,
 }: {
-	children: React.ReactNode; //타입명시
+  children: React.ReactNode; //타입명시
 }) {
-	return (
-		<html
-			lang="ko"
-			className={`${suitFont.variable} ${suitFont.className}`}>
-			<body>
-				{process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? (
-					<GoogleAnalytics
-						trackingId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}
-					/>
-				) : null}
+  return (
+    <html lang="ko" className={`${suitFont.variable} ${suitFont.className}`}>
+      <body>
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? (
+          <GoogleAnalytics
+            trackingId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}
+          />
+        ) : null}
 
-				<main>
-					<CommonProvider>
-						<ServiceWorkerUnregister />
-						<Header />
-						{children}
-						<Footer />
-					</CommonProvider>
-				</main>
-				<div id="modal-root" />
-			</body>
-		</html>
-	);
+        <main>
+          <CommonProvider>
+            <ServiceWorkerUnregister />
+            <Header />
+            {children}
+            <Footer />
+          </CommonProvider>
+        </main>
+        <div id="modal-root" />
+      </body>
+    </html>
+  );
 }
