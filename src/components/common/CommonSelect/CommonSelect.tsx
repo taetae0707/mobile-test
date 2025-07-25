@@ -62,8 +62,8 @@ export function CommonSelect({
 				<CustomSelectValue onClick={handleValueClick}>
 					<span>{optionValue}</span>
 					<Image
-						src={"images/icon-select-dropdown.svg"}
-						alt={""}
+						src={"/images/icon-select-dropdown.svg"}
+						alt={"dropdown"}
 						width={14}
 						height={10}
 					/>

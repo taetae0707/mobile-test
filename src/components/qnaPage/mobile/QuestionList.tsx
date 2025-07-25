@@ -18,6 +18,7 @@ import { useEditAuthority, useQnaList } from "@hooks/qnaPage";
 import { useQnaReply } from "@hooks/qnaPage/useQnaReply";
 import { getMobileVw } from "@utils/responsive";
 import { match } from "ts-pattern";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function QuestionList() {
 	const params = useParams(); // Next.js 방식
@@ -26,6 +27,7 @@ export function QuestionList() {
 	const { publicId, accountType } = useAccountStore();
 	const { teacherAccount, isQuestionListFetched, setIsQuestionListFetched } =
 		useDetailPageContext();
+	const queryClient = useQueryClient();
 
 	//Q&A 리스트 상태관리
 	const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(
@@ -119,9 +121,10 @@ export function QuestionList() {
 									isSecret={getIsSecretQuestion(qna)}
 									key={qna.public_id}
 									onUpdateRequest={() => {
-										if (setIsQuestionListFetched) {
-											setIsQuestionListFetched(true);
-										}
+										// 모든 qnaList 관련 캐시를 무효화하여 탭 전환 시에도 최신 데이터를 보장
+										queryClient.invalidateQueries({
+											queryKey: ["qnaList"],
+										});
 									}}
 								/>
 							</QuestionArea>
@@ -154,7 +157,12 @@ export function QuestionList() {
 									isMyAnswer={getIsSecretQuestion(qna)}
 									teacherName={teacherAccount?.name ?? ""}
 									answerDate={qna.updated_at}
-									onUpdateRequest={() => setIsQuestionListFetched(true)}
+									onUpdateRequest={() => {
+										// 모든 qnaList 관련 캐시를 무효화하여 탭 전환 시에도 최신 데이터를 보장
+										queryClient.invalidateQueries({
+											queryKey: ["qnaList"],
+										});
+									}}
 								/>
 							)}
 						</QnaSection>

@@ -13,6 +13,7 @@ import { match, P } from "ts-pattern";
 import { useEditAuthority, useQnaList } from "@hooks/qnaPage";
 import { AnswerCard } from "@qnaPage/web/AnswerCard.tsx";
 import { QuestionCard } from "@qnaPage/web/QuestionCard.tsx";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function QuestionList() {
 	const params = useParams(); // Next.js 방식
@@ -21,6 +22,7 @@ export function QuestionList() {
 	const { publicId, accountType } = useAccountStore();
 	const { teacherAccount, isQuestionListFetched, setIsQuestionListFetched } =
 		useDetailPageContext();
+	const queryClient = useQueryClient();
 
 	//Q&A 리스트 상태관리
 	const [qnaAskerType, setQnaAskerType] = useState<QnaAskerType>(
@@ -38,17 +40,6 @@ export function QuestionList() {
 			qnaData.refetch().finally(() => setIsQuestionListFetched(false));
 		}
 	}, [isQuestionListFetched, setIsQuestionListFetched]);
-
-	/*
-  teacherAccount:멘토 계정 정보 (job1, ,company1 등)
-  accountType: 계정 종류 (MENTOR, STAFF 등)
-  */
-	// useEffect(() => {
-	//   if (teacherAccount && accountType && ['MENTOR', 'STAFF'].includes(accountType)) {
-	//     //본인에게 달린 질문에만 답변가능
-	//     setIsAnswerAuthority(teacherAccount.public_id === publicId)
-	//   }
-	// }, [teacherAccount, accountType, publicId])
 
 	const handleAnswerModalOpenClick = (question: GetQnaListResponse) => {
 		setAnswerModalData(question);
@@ -97,7 +88,10 @@ export function QuestionList() {
 								isSecret={getIsSecretQuestion(qna)}
 								key={qna.public_id}
 								onUpdateRequest={() => {
-									if (setIsQuestionListFetched) setIsQuestionListFetched(true);
+									// 모든 qnaList 관련 캐시를 무효화하여 탭 전환 시에도 최신 데이터를 보장
+									queryClient.invalidateQueries({
+										queryKey: ["qnaList"],
+									});
 								}}
 							/>
 							{isAuthority && !qna.answer_text && (
@@ -115,7 +109,12 @@ export function QuestionList() {
 								isMyAnswer={getIsSecretQuestion(qna)}
 								teacherName={teacherAccount?.name ?? ""}
 								answerDate={qna.updated_at}
-								onUpdateRequest={() => setIsQuestionListFetched(true)}
+								onUpdateRequest={() => {
+									// 모든 qnaList 관련 캐시를 무효화하여 탭 전환 시에도 최신 데이터를 보장
+									queryClient.invalidateQueries({
+										queryKey: ["qnaList"],
+									});
+								}}
 							/>
 						)}
 					</QnaSection>

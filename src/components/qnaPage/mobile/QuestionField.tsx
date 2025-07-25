@@ -20,6 +20,7 @@ import { CommonSelect } from "@components/common/CommonSelect/CommonSelect";
 import { usePostQuestion } from "api/posts/usePostQuestion";
 import { useParams } from "next/navigation";
 import Image from "next/image";
+import { useQueryClient } from "@tanstack/react-query";
 
 const QUESTION_MAX_LENGTH: number = 500;
 
@@ -33,6 +34,7 @@ export function QuestionField() {
 	const { setSuccessToastMessage, setErrorToastMessage } =
 		useToastMessageStore();
 	const { accessToken } = useAccountStore();
+	const queryClient = useQueryClient();
 	const [questionText, setQuestionText] = useState<string>("");
 	const [isSecret, setIsSecret] = useState<boolean>(false);
 	const [careerYear, setCareerYear] = useState<CareerYearType>(
@@ -65,7 +67,11 @@ export function QuestionField() {
 			setIsSecret(false);
 			setCareerYear(CareerYearType.ACADEMIC);
 			setIsMajor(true);
-			setIsQuestionListFetched(true); //질문목록 다시 불러오기
+
+			// 모든 qnaList 관련 캐시를 무효화하여 탭 전환 시에도 최신 데이터를 보장
+			queryClient.invalidateQueries({
+				queryKey: ["qnaList"],
+			});
 
 			setTimeout(() => {
 				setSuccessToastMessage("질문이 등록되었습니다.");
