@@ -1,8 +1,9 @@
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 
 import withBundleAnalyzer from "@next/bundle-analyzer";
 import TerserPlugin from "terser-webpack-plugin";
 
+// PWA 설정 추가
 const nextConfig = {
   distDir: "./.next",
   poweredByHeader: false,

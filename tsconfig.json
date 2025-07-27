@@ -7,7 +7,8 @@
       "esnext"
     ],
     "allowJs": true,
-    "ignoreDeprecations": "5.0", // optional
+    "ignoreDeprecations": "5.0",
+    // optional
     "skipLibCheck": true,
     "strict": true,
     "allowImportingTsExtensions": true,

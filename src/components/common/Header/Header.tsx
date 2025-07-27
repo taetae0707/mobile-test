@@ -5,11 +5,42 @@ import styled from "@emotion/styled";
 import mainLogo from "@images/logo-main.png";
 import { KakaoLogin } from "@utils/kakao-login";
 import { useAccountStore } from "@store/account";
+import { requestForToken } from "@utils/fcm/firebase.ts";
+import customAxios from "@api/customAxios.ts";
 
 export function Header() {
   const { accessToken, resetaccessToken } = useAccountStore();
   const toHome = () => {
+    requestPermission();
     window.location.href = "/";
+  };
+
+  const requestPermission = async () => {
+    if ("Notification" in window) {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          // FCM 토큰 요청
+          if (!accessToken) {
+            return;
+          }
+          requestForToken().then((token) => {
+            if (token) {
+              console.log("requestForToken 성공!");
+              console.log("FCM 토큰 값: ", token);
+              customAxios.patch("/accounts/device-token", {
+                device_token: token,
+              });
+            }
+          });
+        }
+        if (permission === "denied") {
+          console.log("알림이 거부되었어요");
+          alert("알림이 거부되었어요");
+        }
+      });
+    } else {
+      console.log("알림이 되지 않아요!");
+    }
   };
 
   const handleLogout = () => {

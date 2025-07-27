@@ -9,12 +9,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import GoogleAnalytics from "@components/common/googleAnalytics/GoogleAnalytics.tsx";
 import { Metadata } from "next";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.poomasi.kr"),
   title: "품앗이, 대학생 전문 상담 멘토링",
   description: "대학생 전문 상담 멘토링, 품앗이입니다.",
-  viewport: "width=device-width, initial-scale=1.0",
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
@@ -48,6 +48,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${suitFont.variable} ${suitFont.className}`}>
       <body>
+        <Script src="/service-worker.js" />
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? (
           <GoogleAnalytics
             trackingId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}
