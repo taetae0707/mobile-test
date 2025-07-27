@@ -11,8 +11,8 @@ import customAxios from "@api/customAxios.ts";
 export function Header() {
   const { accessToken, resetaccessToken } = useAccountStore();
   const toHome = () => {
-    requestPermission();
-    window.location.href = "/";
+    await requestPermission();
+    /*window.location.href = "/";*/
   };
 
   const requestPermission = async () => {
@@ -20,9 +20,9 @@ export function Header() {
       Notification.requestPermission().then((permission) => {
         if (permission === "granted") {
           // FCM 토큰 요청
-          if (!accessToken) {
+          /*if (!accessToken) {
             return;
-          }
+          }*/
           requestForToken().then((token) => {
             if (token) {
               console.log("requestForToken 성공!");
