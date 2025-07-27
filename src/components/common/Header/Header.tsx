@@ -11,7 +11,7 @@ import customAxios from "@api/customAxios.ts";
 export function Header() {
   const { accessToken, resetaccessToken } = useAccountStore();
   const toHome = () => {
-    await requestPermission();
+    requestPermission();
     /*window.location.href = "/";*/
   };
 
