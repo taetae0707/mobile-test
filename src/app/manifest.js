@@ -11,6 +11,26 @@ export default function manifest() {
     description: "poomasi",
     icons: [
       {
+        src: "/pwa-53",
+        sizes: "53x53",
+        type: "image/png",
+      },
+      {
+        src: "/pwa-80.png",
+        sizes: "80x80",
+        type: "image/png",
+      },
+      {
+        src: "/pwa-106.png",
+        sizes: "106x106",
+        type: "image/png",
+      },
+      {
+        src: "/pwa-160.png",
+        sizes: "160x160",
+        type: "image/png",
+      },
+      {
         src: "/pwa-192.png",
         sizes: "192x192",
         type: "image/png",

@@ -16,9 +16,8 @@ export const metadata: Metadata = {
   title: "품앗이, 대학생 전문 상담 멘토링",
   description: "대학생 전문 상담 멘토링, 품앗이입니다.",
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
-    apple: "/pwa-192.png",
+    icon: "/pwa-192.png",
+    shortcut: "/pwa-192.png",
   },
   openGraph: {
     title: "품앗이, 대학생 전문 상담 멘토링",
