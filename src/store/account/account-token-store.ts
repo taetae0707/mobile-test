@@ -6,10 +6,11 @@ import { AccountType } from "@types";
 
 type AccessTokenStore = {
   accessToken: string | null;
-  setaccessToken: (token: string) => void;
+  setAccessToken: (token: string) => void;
   publicId: string | null;
   setPublicId: (id: string) => void;
-  resetaccessToken: () => void;
+  resetAccessToken: () => void;
+  fcmToken: string | null; // FCM 토큰 추가
   // 추가
   accountType: AccountType.MENTOR | AccountType.USER | AccountType.STAFF | null;
   setAccountType: (
@@ -17,6 +18,7 @@ type AccessTokenStore = {
   ) => void;
   nickname: string | null;
   setNickname: (nickname: string) => void;
+  setFcmToken: (token: string) => void;
 };
 
 export const useAccountStore = create<AccessTokenStore>()(
@@ -28,17 +30,20 @@ export const useAccountStore = create<AccessTokenStore>()(
       publicId: null,
       accountType: null,
       nickname: null, // 초기값
-      setaccessToken: (token) => set({ accessToken: token }),
+      fcmToken: null, // FCM 토큰 초기값
+      setAccessToken: (token) => set({ accessToken: token }),
       setPublicId: (id) => set({ publicId: id }),
       setAccountType: (type) => set({ accountType: type }),
       setNickname: (nickname) => set({ nickname }),
+      setFcmToken: (token) => set({ fcmToken: token }), // FCM 토큰 설정 함수
       // 함수 추가
-      resetaccessToken: () => {
+      resetAccessToken: () => {
         set({
           accessToken: null,
           publicId: null,
           accountType: null,
           nickname: null,
+          fcmToken: null, // FCM 토큰 초기화
         });
       },
     }),
@@ -49,6 +54,22 @@ export const useAccountStore = create<AccessTokenStore>()(
     },
   ),
 );
+
+export const useAccountStoreData = () => {
+  const getAccountToken = () => useAccountStore.getState().accessToken;
+  const getPublicId = () => useAccountStore.getState().publicId;
+  const getAccountType = () => useAccountStore.getState().accountType;
+  const getNickname = () => useAccountStore.getState().nickname;
+  const getFcmToken = () => useAccountStore.getState().fcmToken;
+
+  return {
+    getAccountToken,
+    getPublicId,
+    getAccountType,
+    getNickname,
+    getFcmToken,
+  };
+};
 
 /* 토큰값 흐름
 1. 카카오 로그인 

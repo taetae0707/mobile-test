@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
-    apple: "/apple-touch-icon.png",
+    apple: "/pwa-192.png",
   },
   openGraph: {
     title: "품앗이, 대학생 전문 상담 멘토링",

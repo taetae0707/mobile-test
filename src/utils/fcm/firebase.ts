@@ -44,15 +44,11 @@ export const requestForToken = async () => {
     });
 
     if (currentToken) {
-      console.log("FCM 토큰 가져오기 성공!");
-
       // 테스트 시 사용
       // console.log('FCM 토큰 값: ', currentToken);
 
       // 나중에 토큰을 백엔드 서버로 전송하는 로직 추가
       return currentToken;
-    } else {
-      console.log("토큰을 가져올 수 없습니다.");
     }
   } catch (err) {
     console.log("토큰 발급 중 에러 발생:", err);

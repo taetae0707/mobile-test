@@ -3,8 +3,38 @@
 import styled from "@emotion/styled";
 import { getMobileVw } from "@utils/responsive";
 import { colors } from "@styles/foundation/color";
+import { useAccountStore, useAccountStoreData } from "@store/account";
+import { requestForToken } from "@utils/fcm/firebase.ts";
+import customAxios from "@api/customAxios.ts";
 
 export function Footer() {
+  const { setFcmToken } = useAccountStore();
+  const { getAccountToken } = useAccountStoreData();
+
+  const requestPermission = async () => {
+    if ("Notification" in window) {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          // FCM 토큰 요청
+          requestForToken().then((token) => {
+            if (token) {
+              setFcmToken(token); // FCM 토큰 저장
+
+              // 로그인 된 경우에만 서버에 토큰 전송
+              if (getAccountToken()) {
+                customAxios.patch("/accounts/device-token", {
+                  device_token: token,
+                });
+              }
+            }
+          });
+        }
+      });
+    } else {
+      console.log("알림이 되지 않아요!");
+    }
+  };
+
   return (
     <FooterContainer>
       <FooterWrapper>
@@ -13,7 +43,9 @@ export function Footer() {
             poomasiofficial@gmail.com
           </Mail>
         </InquireText>
-        <InquireText>Copyright ⓒ Poomasi. All Rights Reserved</InquireText>
+        <InquireText onClick={requestPermission}>
+          Copyright ⓒ Poomasi. All Rights Reserved
+        </InquireText>
       </FooterWrapper>
     </FooterContainer>
   );

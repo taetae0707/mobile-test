@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { REDIRECT_URI, REST_API_KEY } from "@types";
 import { RequestApi } from "@api/request-api";
-import { useAccountStore } from "@store/account";
+import { useAccountStore, useAccountStoreData } from "@store/account";
 import { useToastMessageStore } from "@toast";
 import axios from "axios";
 
@@ -17,7 +17,8 @@ type KakaoLoginRes = {
 };
 
 export default function KakaoLoginCallback() {
-  const { setaccessToken, setPublicId, setAccountType } = useAccountStore();
+  const { setAccessToken, setPublicId, setAccountType } = useAccountStore();
+  const { getFcmToken } = useAccountStoreData();
   const { setErrorToastMessage } = useToastMessageStore();
   const router = useRouter();
 
@@ -65,7 +66,7 @@ export default function KakaoLoginCallback() {
         const idToken = response.data.id_token; //OAuth에서 발급하는 JWT(JSON Web Token) 형태의 '유저 인증 정보 토큰'
         const kakaoLoginResponse = await RequestApi.accounts.postKakaoLogin({
           id_token: idToken, //OAuth에서 발급하는 JWT(JSON Web Token) 형태의 '유저 인증 정보 토큰'
-          device_token: null,
+          device_token: getFcmToken(),
         });
 
         // 3. 백엔드 응답에서 토큰 및 ID 추출
@@ -79,7 +80,7 @@ export default function KakaoLoginCallback() {
 
         // localStorage에 사용자 정보 저장
         setPublicId(publicId);
-        setaccessToken(accessToken);
+        setAccessToken(accessToken);
         setAccountType(accountTypeFromToken);
 
         //로그인 로딩시간 측정용
@@ -95,13 +96,12 @@ export default function KakaoLoginCallback() {
         setErrorToastMessage(
           "로그인 도중 문제가 발생하였습니다.\n 잠시 후 다시 시도해주세요.",
         );
-        /*console.log(error);*/
         router.push("/");
       }
     };
     fetchToken();
   }, [
-    setaccessToken,
+    setAccessToken,
     setPublicId,
     setAccountType,
     setErrorToastMessage,
