@@ -6,12 +6,12 @@ export default function manifest() {
     display: "standalone",
     scope: "/",
     start_url: "/",
-    name: "poomasi",
-    short_name: "poomasi",
-    description: "poomasi",
+    name: "품앗이",
+    short_name: "품앗이",
+    description: "품앗이, 대학생 전문 상담 멘토링",
     icons: [
       {
-        src: "/pwa-53",
+        src: "/pwa-53.png",
         sizes: "53x53",
         type: "image/png",
       },
@@ -32,12 +32,12 @@ export default function manifest() {
       },
       {
         src: "/pwa-192.png",
-        sizes: "192x192",
+        sizes: "212x212",
         type: "image/png",
       },
       {
         src: "/pwa-512.png",
-        sizes: "512x512",
+        sizes: "620x620",
         type: "image/png",
       },
     ],
