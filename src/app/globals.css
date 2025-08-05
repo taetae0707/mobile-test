@@ -86,17 +86,8 @@ mark,
 textarea,
 audio,
 video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
 	font-family: var(--font-suit);
 	vertical-align: baseline;
-
-	/* padding box problem */
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box; /* Firefox, other Gecko */
-	box-sizing: border-box; /* Opera/IE 8+ */
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -173,14 +164,28 @@ body {
 	bottom: -20% !important;
 	right: 0%;
 }
+
 .slick-dots li {
 	width: 30px;
 }
+
 .slick-dots li button:before {
 	font-size: 16px;
 }
+
 .slick-slider {
 	background-color: #f7f7f7;
 	border-radius: 10px;
 	padding: 20px;
 }
+
+.rolling-container {
+	display: flex;
+	gap: 200px;
+	height: 22px;
+	animation: rolling 5s linear infinite;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

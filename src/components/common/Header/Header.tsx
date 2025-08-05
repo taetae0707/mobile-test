@@ -1,10 +1,6 @@
 "use client";
-import Image from "next/image";
-
-import styled from "@emotion/styled";
-import mainLogo from "@images/logo-main.png";
-import { KakaoLogin } from "@utils/kakao-login";
 import { useAccountStore } from "@store/account";
+import { KakaoLogin } from "@utils/kakao-login";
 
 export function Header() {
   const { accessToken, resetAccessToken } = useAccountStore();
@@ -18,93 +14,34 @@ export function Header() {
   };
 
   return (
-    <>
-      <HeaderContainer>
-        <HeaderContent>
-          <LogoButtonWrapper onClick={toHome}>
-            <LogoImage
-              src={mainLogo}
-              alt="logo"
-              width={150}
-              height={26}
-              priority
-            />
-          </LogoButtonWrapper>
-
-          {accessToken ? (
-            <KakaoLoginBtn onClick={() => handleLogout()}>
-              로그아웃
-            </KakaoLoginBtn>
-          ) : (
-            <KakaoLogin />
-          )}
-        </HeaderContent>
-      </HeaderContainer>
-    </>
+    <header className="flex justify-between items-center w-full h-[80px] px-20  fixed bg-white z-20">
+      <svg
+        width="100"
+        height="66"
+        viewBox="0 0 100 66"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="flex-grow-0 flex-shrink-0 w-[100px] h-[65px] relative"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M31.1486 12.5L47.2663 17.5L58.7127 8.5L63.7121 20.1856H92L70.6031 35.4566L74.6036 51.5L51.2426 45L33.3491 57.5V40L8 32L31.1486 26.0285V12.5Z"
+          fill="black"
+        ></path>
+      </svg>
+      <div className="flex justify-start items-center gap-8">
+        <div className="flex justify-center items-center gap-2.5">
+          <p className="flex-grow-0 flex-shrink-0 text-xl font-medium text-left text-black">
+            채용공고
+          </p>
+        </div>
+        <div className="flex justify-center items-center gap-2.5">
+          <p className="flex-grow-0 flex-shrink-0 text-xl font-medium text-left text-black">
+            질문하기
+          </p>
+        </div>
+        <KakaoLogin />
+      </div>
+    </header>
   );
 }
-
-const LogoButtonWrapper = styled.button`
-  cursor: pointer;
-  font-size: 40px;
-  background: none;
-  border: none;
-  padding: 0;
-
-  @media (max-width: 1024px) {
-    font-size: 0;
-  }
-`;
-
-const LogoImage = styled(Image)`
-  @media (max-width: 1024px) {
-    width: 6.125rem;
-    height: 1.25rem;
-  }
-`;
-
-const KakaoLoginBtn = styled.button`
-  font-size: 1.1875rem;
-  padding: 0.6rem 1.25rem;
-  color: #08ae98;
-  background-color: #fff;
-  border-radius: 12px;
-  border: 1.5px solid #3ecdba;
-
-  @media (max-width: 1024px) {
-    width: 5rem;
-    padding: 7px 12px;
-    height: 30px;
-    font-size: 12px;
-    border-radius: 6px;
-  }
-`;
-
-const HeaderContainer = styled.div`
-  position: sticky;
-  width: 100%;
-  padding: 1rem 0;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  color: #333;
-  background-color: #fff;
-  z-index: 999;
-
-  @media (max-width: 1024px) {
-    width: 100%;
-    padding: 12px 0;
-  }
-`;
-const HeaderContent = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1320px;
-  margin: 0 auto;
-
-  @media (max-width: 1320px) {
-    padding: 0 5%;
-  }
-`;

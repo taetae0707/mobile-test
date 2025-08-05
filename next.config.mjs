@@ -19,6 +19,8 @@ const nextConfig = {
 
     // SVG 파일에 대한 보안 정책 설정 (XSS 공격 방지)
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    
+    domains: ["poomasi-prod.s3.ap-northeast-2.amazonaws.com"],
   },
 
   // webpack을 compiler 밖으로 이동

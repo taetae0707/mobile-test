@@ -1,32 +1,24 @@
 "use client";
 
-import styled from "@emotion/styled";
-import TitleSection from "@components/landingPage/web/TitleSection.tsx";
-import { PoomCounter } from "@components/landingPage/web/PoomCounter.tsx";
-import { ProfilesSection } from "@components/landingPage/web/ProfilesSection.tsx";
-import { IntroduceSection } from "@components/landingPage/web/IntroduceSection.tsx";
-import { MobileLandingPage } from "@components/landingPage/mobile/MobileLandingPage";
 import { useMobileStore } from "@store/useMobileStore.ts";
+import { IntroSection } from "@components/LandingPage2/IntroSection.tsx";
+import { QuestionMoveSection } from "@components/LandingPage2/QuestionMoveSection.tsx";
+import { HistorySection } from "@components/LandingPage2/HistorySection.tsx";
+import { CompanyRollingSection } from "@components/LandingPage2/CompanyRollingSection.tsx";
+import { UsingGuideSection } from "@components/LandingPage2/UsingGuideSection.tsx";
+import { FaqSection } from "@components/LandingPage2/FaqSection.tsx";
 
 export default function LandingPage() {
-	const { isMobile } = useMobileStore();
+  const { isMobile } = useMobileStore();
 
-	return isMobile ? (
-		<MobileLandingPage />
-	) : (
-		// Pc 랜더링 컴포넌트
-		<PageContainer>
-			<TitleSection />
-			<IntroduceSection />
-			<PoomCounter />
-			<ProfilesSection />
-		</PageContainer>
-	);
+  return (
+    <div className="landingPageContainer">
+      <IntroSection />
+      <QuestionMoveSection />
+      <HistorySection />
+      <CompanyRollingSection />
+      <UsingGuideSection />
+      <FaqSection />
+    </div>
+  );
 }
-
-const PageContainer = styled.div`
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 60px;
-`;

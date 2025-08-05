@@ -1,11 +1,9 @@
 "use client";
 
-import styled from "@emotion/styled";
-import { getMobileVw } from "@utils/responsive";
-import { colors } from "@styles/foundation/color";
 import { useAccountStore, useAccountStoreData } from "@store/account";
 import { requestForToken } from "@utils/fcm/firebase.ts";
 import customAxios from "@api/customAxios.ts";
+import NextImage from "next/image";
 
 export function Footer() {
   const { setFcmToken } = useAccountStore();
@@ -36,73 +34,34 @@ export function Footer() {
   };
 
   return (
-    <FooterContainer>
-      <FooterWrapper>
-        <InquireText>
-          <Mail href="mailto://poomasiofficial@gmail.com">
-            poomasiofficial@gmail.com
-          </Mail>
-        </InquireText>
-        <InquireText onClick={requestPermission}>
+    <div
+      className="w-full overflow-hidden flex flex-col justify-center items-start gap-[80px] bg-black pl-[100px] max-xl:pl-[75px] max-md:pl-[40px] max-sm:pl-[24px]
+                    h-[481px] max-xl:h-[374px] max-md:h-[257px] max-sm:h-[316px]
+    "
+    >
+      <p className="text-[68px] font-bold text-left text-white">
+        <NextImage
+          src={"/images/footer_img.png"}
+          alt={"하단 이미지"}
+          width={586}
+          height={166}
+          className="w-[586px] max-xl:w-[431px] max-md:w-[242px] max-sm:w-[173px]
+          h-[166px] max-xl:h-[125px] max-md:h-[64px] max-sm:h-[48px]"
+        />
+      </p>
+      <div className="flex flex-col justify-start items-start w-[322px] gap-4 text-[18px] max-md:text-[16px] max-sm:text-[14px]">
+        <div className="flex justify-start items-center h-[25px] gap-2 text-[#d9d9d9]">
+          <p className="font-medium border-r-[1px] border-[#8C8C8C] pr-[10px] hover:underline">
+            서비스 이용약관
+          </p>
+          <p className="font-medium hover:underline">개인정보처리방침</p>
+        </div>
+        <p className="text-[#999] whitespace-nowrap hover:underline">
+          poomasiofficial@gmail.com
+          <br />
           Copyright ⓒ Poomasi. All Rights Reserved
-        </InquireText>
-      </FooterWrapper>
-    </FooterContainer>
+        </p>
+      </div>
+    </div>
   );
 }
-
-const FooterContainer = styled.div`
-  width: 100%;
-  margin-top: 60px;
-  border-top: 1px solid #eaebed;
-
-  @media (max-width: 1024px) {
-    padding: 30px ${getMobileVw(20)};
-    margin-top: 0;
-  }
-`;
-
-const FooterWrapper = styled.div`
-  width: 100%;
-  max-width: 1320px;
-  margin: 0 auto;
-  height: 180px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: ${colors.gray600};
-
-  @media (max-width: 1320px) {
-    padding: 0 5%;
-  }
-
-  @media (max-width: 1024px) {
-    font-size: 10px;
-    flex-direction: column;
-    gap: 12px;
-    padding-left: 0;
-    height: auto;
-  }
-`;
-
-const InquireText = styled.div`
-  color: ${colors.gray600};
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 24px */
-  @media (max-width: 1024px) {
-    font-size: 12px;
-  }
-`;
-
-const Mail = styled.a`
-  text-decoration: none;
-  color: ${colors.gray600};
-
-  &:hover {
-    color: white;
-    background-color: gray;
-    transition: 0.5s ease;
-  }
-`;
