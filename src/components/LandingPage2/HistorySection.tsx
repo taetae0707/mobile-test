@@ -62,13 +62,13 @@ export function HistorySection() {
                       max-sm:grid max-sm:grid-cols-2 max-sm:h-auto
       "
       >
-        <HistoryCount count={apiRes?.mentor ?? 0} addText={"번의 품을"} />
+        <HistoryCount count={apiRes?.qna ?? 0} addText={"번의 품을"} />
+        <HistoryCount count={apiRes?.normal ?? 0} addText={"명의 새싹님들과"} />
         <HistoryCount
           count={apiRes?.mentor_field ?? 0}
-          addText={"명의 새싹님들과"}
+          addText={"개의 분야에서"}
         />
-        <HistoryCount count={apiRes?.normal ?? 0} addText={"개의 분야에서"} />
-        <HistoryCount count={apiRes?.qna ?? 0} addText={"명의 품앗이꾼과"} />
+        <HistoryCount count={apiRes?.mentor ?? 0} addText={"명의 품앗이꾼과"} />
       </div>
     </div>
   );

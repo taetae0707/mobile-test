@@ -39,7 +39,8 @@ export function KakaoLogin() {
     <>
       {!isLoginProcessing && (
         <div
-          className="flex justify-center items-center w-[159px] h-[50px] rounded-md bg-[#ffea00] gap-[10px]"
+          className="flex justify-center items-center h-[50px] rounded-md bg-[#ffea00] gap-[10px]
+                    max-sm:h-[30px] max-sm:gap:[3px] max-sm:p-[8px] cursor-pointer"
           onClick={handleKakaoLoginClick}
         >
           <NextImage
@@ -47,8 +48,12 @@ export function KakaoLogin() {
             alt={"카카오 로그인 아이콘"}
             width={20}
             height={20}
+            className={"max-sm:h-[12px] max-sm:w-[12px]"}
           />
-          <p className="text-lg text-left text-black">카카오 로그인</p>
+          <p className="text-lg text-left text-black max-sm:text-[12px]">
+            <span className={"max-sm:hidden"}>카카오 </span>
+            <span>로그인</span>
+          </p>
         </div>
       )}
     </>
