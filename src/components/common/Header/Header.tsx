@@ -32,7 +32,9 @@ export function Header() {
           className={"max-md:w-[50px] max-md:h-[33px] cursor-pointer"}
         />
         <div className="flex justify-start items-center gap-8 max-sm:gap-[12px]">
-          <div className={"max-sm:hidden"}>
+          <div
+            className={"max-sm:hidden flex justify-center items-center gap-8"}
+          >
             <div className="flex justify-center items-center gap-2.5">
               <p className="flex-grow-0 flex-shrink-0 text-xl font-medium text-left text-black">
                 채용공고

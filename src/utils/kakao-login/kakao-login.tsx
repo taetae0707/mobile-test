@@ -40,7 +40,7 @@ export function KakaoLogin() {
       {!isLoginProcessing && (
         <div
           className="flex justify-center items-center h-[50px] rounded-md bg-[#ffea00] gap-[10px]
-                    max-sm:h-[30px] max-sm:gap:[3px] max-sm:p-[8px] cursor-pointer"
+                    max-sm:h-[30px] max-sm:gap:[3px] max-sm:p-[8px] p-[12px] cursor-pointer"
           onClick={handleKakaoLoginClick}
         >
           <NextImage
