@@ -33,7 +33,11 @@ export function UsingGuideSection() {
           </span>
         </p>
         <div className={"w-full max-sm:overflow-auto"}>
-          <div className={"inline-flex items-center max-sm:gap-[30px] w-auto"}>
+          <div
+            className={
+              "flex max-sm:inline-flex justify-between items-center max-sm:gap-[30px] w-auto"
+            }
+          >
             {introCardDataList.map((data) => (
               <UsingGuideCard
                 key={data.index}
