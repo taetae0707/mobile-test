@@ -26,15 +26,14 @@ export function FaqSection() {
 
   return (
     <div
-      className="w-full overflow-hidden bg-[#fcfcfc] flex justify-between items-center
-                  pl-[230px] max-xl:pl-[150px] max-md:pl-[64px] max-sm:pl-[20px]
-                  pr-[80px] max-xl:pr-[60px] max-md:pr-[60px] max-sm:pr-[24px]
+      className="w-full overflow-hidden bg-[#fcfcfc] flex justify-center items-center
                   h-[994px] max-xl:h-[693px] max-md:h[465px] max-sm:h-[558px]
                   "
     >
       <div
         className={
-          "flex justify-between items-center w-full max-sm:flex-col max-sm:items-start max-sm:gap-[40px]"
+          "flex w-full max-w-[1450px] max-xl:max-w-[1086px] max-md:max-w-[640px] max-sm:max-w-[328px] " +
+          "justify-between items-center max-sm:flex-col max-sm:items-start max-sm:gap-[40px]"
         }
       >
         <p className="text-[50px] max-xl:text-[36px] max-md:text-[22px] max-sm:text-[24px] font-bold text-left text-black self-start">

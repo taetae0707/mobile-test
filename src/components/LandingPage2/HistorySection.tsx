@@ -31,14 +31,14 @@ export function HistorySection() {
     <div
       className="w-full bg-[#fcfcfc] flex justify-center items-center flex-col gap-[200px]
                     h-[985px] max-xl:h-[745px] max-md:h-[445px] max-sm:h-[622px]
-                    pr-[228px] max-xl:pr-[190px] max-md:pr-[64px]
-                    pl-[228px] max-xl:pl-[190px] max-md:pl-[64px]
                     max-sm:gap-[150px] max-sm:pl-[24px] max-sm:pr-[20px]
     "
     >
       <div
         className={
-          "flex justify-between w-full max-sm:flex-col max-sm:gap-[20px]"
+          "flex justify-between w-full" +
+          " max-w-[1450px] max-xl:max-w-[1086px] max-md:max-w-[640px] max-sm:max-w-[328px]" +
+          " max-sm:flex-col max-sm:gap-[20px]"
         }
       >
         <p
@@ -58,7 +58,7 @@ export function HistorySection() {
         </p>
       </div>
       <div
-        className="w-full h-[202px] max-xl:h-[145px] max-md:h-[90px] flex justify-between
+        className="w-full max-w-[1450px] max-xl:max-w-[1086px] max-md:max-w-[640px] max-sm:max-w-[328px] h-[202px] max-xl:h-[145px] max-md:h-[90px] flex justify-between
                       max-sm:grid max-sm:grid-cols-2 max-sm:h-auto
       "
       >

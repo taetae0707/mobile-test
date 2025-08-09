@@ -33,11 +33,7 @@ export function UsingGuideSection() {
           </span>
         </p>
         <div className={"w-full max-sm:overflow-auto"}>
-          <div
-            className={
-              "flex justify-between items-center max-sm:w-full max-sm:gap-[30px] max-sm:w-[500px]"
-            }
-          >
+          <div className={"inline-flex items-center max-sm:gap-[30px] w-auto"}>
             {introCardDataList.map((data) => (
               <UsingGuideCard
                 key={data.index}
@@ -61,8 +57,8 @@ function UsingGuideCard({
 }) {
   return (
     <div
-      className="w-[470px] max-xl:w-[340px] max-md:w-[205px] max-sm:w-[225px] max-sm:w-[225px]
-                  h-[550px] max-xl:h-[400px] max-md:h-[265px] max-sm:h-[225px] max-sm:h-[290px]
+      className="w-[470px] max-xl:w-[340px] max-md:w-[205px] max-sm:w-[225px]
+                  h-[550px] max-xl:h-[400px] max-md:h-[265px] max-sm:h-[290px]
                    overflow-hidden rounded-[40px] bg-neutral-100 flex flex-col"
     >
       <div className="w-full h-[366px] bg-[#d9d9d9] text-[50px] font-bold text-left text-black flex justify-center items-center">
@@ -72,7 +68,7 @@ function UsingGuideCard({
         className={"p-[28px] max-sm:pl-[12px] max-sm:pt-[16px] flex flex-col"}
       >
         <p className="text-[20px] max-xl:text-[16px] max-md:text-[12px] max-sm:text-[12px] font-bold text-left text-black">
-          STEP 01
+          STEP 0{index}
         </p>
         <p className="text-[20px] max-xl:text-[17px] max-md:text-[14px] max-sm:text-[14px] text-left text-[#595959] whitespace-pre-line">
           {content}

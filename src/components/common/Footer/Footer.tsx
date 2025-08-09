@@ -51,12 +51,14 @@ export function Footer() {
       </p>
       <div className="flex flex-col justify-start items-start w-[322px] gap-4 text-[18px] max-md:text-[16px] max-sm:text-[14px]">
         <div className="flex justify-start items-center h-[25px] gap-2 text-[#d9d9d9]">
-          <p className="font-medium border-r-[1px] border-[#8C8C8C] pr-[10px] hover:underline">
+          <p className="font-medium border-r-[1px] border-[#8C8C8C] pr-[10px] hover:underline cursor-pointer">
             서비스 이용약관
           </p>
-          <p className="font-medium hover:underline">개인정보처리방침</p>
+          <p className="font-medium hover:underline cursor-pointer">
+            개인정보처리방침
+          </p>
         </div>
-        <p className="text-[#999] whitespace-nowrap hover:underline">
+        <p className="text-[#999] whitespace-nowrap hover:underline cursor-pointer">
           poomasiofficial@gmail.com
           <br />
           Copyright ⓒ Poomasi. All Rights Reserved
