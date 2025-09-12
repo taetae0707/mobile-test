@@ -3,22 +3,22 @@ import { DefaultApiResponse } from "api/types/DefaultApiResponse";
 import { useAccountStore } from "@store/account";
 
 export interface CustomInstance extends AxiosInstance {
-  get<T = any, R = DefaultApiResponse<T>>(
-    url: string,
-    config?: AxiosRequestConfig,
-  ): Promise<R>;
+	get<T = any, R = DefaultApiResponse<T>>(
+		url: string,
+		config?: AxiosRequestConfig
+	): Promise<R>;
 
-  post<T = any, R = DefaultApiResponse<T>>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig,
-  ): Promise<R>;
+	post<T = any, R = DefaultApiResponse<T>>(
+		url: string,
+		data?: any,
+		config?: AxiosRequestConfig
+	): Promise<R>;
 
-  patch<T = any, R = DefaultApiResponse<T>>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig,
-  ): Promise<R>;
+	patch<T = any, R = DefaultApiResponse<T>>(
+		url: string,
+		data?: any,
+		config?: AxiosRequestConfig
+	): Promise<R>;
 }
 
 /* 기본 axios
@@ -54,11 +54,11 @@ AxiosResponse 안에는 이런 정보가 들어있어요:
 */
 
 const customAxios: CustomInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-  timeout: 1000 * 60, // 1분
+	baseURL: process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "/api/proxy",
+	headers: {
+		"Content-Type": "application/json",
+	},
+	timeout: 1000 * 60, // 1분
 });
 /*axios.create()  "axios 인스턴스를 새로 만드는 함수"
 즉, 공장에서 내 입맛에 맞는 차를 한 대 뽑아내는 거예요.
@@ -66,12 +66,14 @@ const customAxios: CustomInstance = axios.create({
 기본값(baseURL, header 등)이 내가 지정한 값으로 세팅된 사본이에요.
 */
 
+// 디버깅: axios 설정 정보 출력
+
 customAxios.interceptors.request.use(function (request) {
-  const token = useAccountStore.getState().accessToken;
-  if (token) {
-    request.headers.Authorization = token;
-  }
-  return request;
+	const token = useAccountStore.getState().accessToken;
+	if (token) {
+		request.headers.Authorization = token;
+	}
+	return request;
 });
 /* 이 코드의 목적: 로그인 후 발급된 토큰이 헤더에 자동으로 추가되게 만든 인터셉터 
 interceptor란? API 요청을 보내기 "직전"에 자동으로 실행되는 코드
@@ -101,17 +103,17 @@ request: 매개변수가 아니라 axios가 요청을 보내기 전 단계의 �
 */
 
 customAxios.interceptors.response.use(
-  function (response) {
-    return response.data;
-  },
-  function (error) {
-    // axios 시간 초과 오류
-    if (error.code === "ECONNABORTED") {
-      return Promise.reject("API 요청 시간을 초과하였습니다.");
-    }
+	function (response) {
+		return response.data;
+	},
+	function (error) {
+		// axios 시간 초과 오류
+		if (error.code === "ECONNABORTED") {
+			return Promise.reject("API 요청 시간을 초과하였습니다.");
+		}
 
-    return Promise.reject(error);
-  },
+		return Promise.reject(error);
+	}
 );
 /* 이 코드의 목적: 인터셉터에서 자동으로 .data만 반환하게 만든 코드
 
