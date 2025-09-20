@@ -24,6 +24,7 @@
 			"@assets/*": ["assets/*"],
 			"@components/*": ["components/*"],
 			"@store/*": ["store/*"],
+			"@queries/*": ["queries/*"],
 			"@utils/*": ["utils/*"],
 			"@hooks/*": ["hooks/*"],
 			"@toast": ["toast/index.ts"],

@@ -1,3 +1,3 @@
 export * from "./account";
-export * from "./positions";
+export * from "./basicPositions";
 export * from "./filters";

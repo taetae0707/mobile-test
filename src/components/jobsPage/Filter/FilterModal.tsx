@@ -1,9 +1,15 @@
 "use client";
 
 import { useFilterStore } from "@store/filters";
-import { FilterSection } from "./FilterSection";
-import { PopularSkillsSection } from "./PopularSkillsSection";
-
+import { useBasicPositionsStore } from "@store/basicPositions";
+import { FilterSection } from "@components/jobsPage/Filter/FilterSection";
+import { PopularSkillsSection } from "@components/jobsPage/Filter/PopularSkillsSection";
+import {
+	usePositionsQuery,
+	useSkillsQuery,
+	useCompaniesQuery,
+} from "@queries/index";
+import { POPULAR_SKILLS_CONFIG } from "@constants/popularSkills";
 interface FilterModalProps {
 	onFiltersApplied?: () => void;
 }
@@ -12,18 +18,13 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 	const {
 		isModalOpen,
 		activeModalType,
-		positions,
-		companies,
 		experienceOptions,
 		locationOptions,
-		popularSkills,
 		selectedPositions,
 		selectedCompanies,
 		selectedExperience,
 		selectedLocations,
 		selectedSkills,
-		loading,
-		error,
 		closeModal,
 		togglePosition,
 		toggleCompany,
@@ -33,6 +34,26 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 		clearAllFilters,
 		applyFilters,
 	} = useFilterStore();
+
+	// React Query로 데이터 가져오기
+	const {
+		data: positions = [],
+		isLoading: positionsLoading,
+		error: positionsError,
+	} = usePositionsQuery();
+	const {
+		data: companies = [],
+		isLoading: companiesLoading,
+		error: companiesError,
+	} = useCompaniesQuery();
+	const {
+		data: skills = [],
+		isLoading: skillsLoading,
+		error: skillsError,
+	} = useSkillsQuery();
+
+	const loading = positionsLoading || companiesLoading || skillsLoading;
+	const error = positionsError || companiesError || skillsError;
 
 	if (!isModalOpen) return null;
 
@@ -102,7 +123,11 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 
 						{error && (
 							<div className="p-4 bg-red-50 border border-red-200 rounded-lg mb-6">
-								<p className="text-red-600 text-sm">{error}</p>
+								<p className="text-red-600 text-sm">
+									{error instanceof Error
+										? error.message
+										: "데이터를 불러오는데 실패했습니다."}
+								</p>
 							</div>
 						)}
 
@@ -134,7 +159,7 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 								/>
 								<PopularSkillsSection
 									title="인기스택"
-									skills={popularSkills}
+									skills={POPULAR_SKILLS_CONFIG}
 									selectedSkills={selectedSkills}
 									onToggle={toggleSkill}
 								/>

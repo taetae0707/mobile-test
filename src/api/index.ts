@@ -1,6 +1,4 @@
-export * from "./request-api";
-export * from "../types/enums";
-export * from "./types/account.types";
-export * from "./positions";
-export * from "./skills";
+export * from "@api/request-api";
+// export * from "../types/enums";
+export * from "@api/types/account.types";
 export * from "@types";

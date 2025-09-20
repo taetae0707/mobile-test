@@ -28,10 +28,6 @@ function useSetFromArray<T extends string | number>(arr?: T[]): Set<T> | null {
 	return ref.current.set;
 }
 
-/**
- * 상세한 필터링 로직을 담당하는 훅
- * position_id 기반으로 필터링하여 성능과 안정성을 보장합니다.
- */
 export function useDetailJobsFilters({
 	allJobs,
 	filters,

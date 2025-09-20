@@ -18,3 +18,9 @@ export const PositionsApi = {
 		}
 	},
 };
+
+/*
+-PositionsApi 객체의 key가  getPositions
+-customAxios.get(...) 자체는 Promise를 반환
+-await가 “요청 끝날 때까지 잠깐 멈췄다가 → 결과값을 풀어서 반환”
+ */

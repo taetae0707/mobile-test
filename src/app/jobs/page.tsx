@@ -3,14 +3,15 @@
 import { useCompanyCategories } from "@hooks/jobsPage/useCompanyCategories";
 import { useBasicJobsFilters } from "@hooks/jobsPage/useBasicJobsFilters";
 import { CompanyNavList } from "@components/jobsPage/CompanyNav/CompanyNavList";
-import { JobList } from "@components/jobsPage/jobList";
+import { JobList } from "@components/jobsPage/JobList";
 import {
 	BasicFilter,
 	FilterButtonsRow,
 	FilterModal,
-} from "@components/jobsPage/filterButtons";
-import { usePositionsStore } from "@store/positions";
+} from "@components/jobsPage/Filter";
+import { useBasicPositionsStore } from "@store/basicPositions";
 import { useFilterStore } from "@store/filters";
+import { POPULAR_SKILLS_CONFIG } from "@constants/popularSkills";
 import { RecruitmentResponse } from "@api/types/job.types";
 import { CompanyParentResponse } from "@api/types/company.types";
 import { useEffect } from "react";
@@ -35,28 +36,30 @@ export default function JobsPage() {
 		refetch,
 	} = useBasicJobsFilters();
 
-	const { selectedPositions } = usePositionsStore();
+	const { selectedPositionIds } = useBasicPositionsStore();
 	const {
-		setJobs,
+		extractFilterOptions,
 		selectedPositions: modalSelectedPositions,
 		selectedCompanies,
 		selectedExperience,
 		selectedLocations,
 		selectedSkills,
-		popularSkills,
 	} = useFilterStore();
+
+	// 인기 스킬은 하드코딩된 설정 사용
+	const popularSkills = POPULAR_SKILLS_CONFIG;
 
 	// zustand 스토어의 선택된 포지션을 필터에 동기화
 	useEffect(() => {
-		updateFilters({ position_titles: selectedPositions });
-	}, [selectedPositions, updateFilters]);
+		updateFilters({ position_ids: selectedPositionIds });
+	}, [selectedPositionIds, updateFilters]);
 
-	// jobs 데이터가 로드되면 필터 스토어에 전달
+	// jobs 데이터가 로드되면 필터 옵션 추출
 	useEffect(() => {
 		if (allJobs.length > 0) {
-			setJobs(allJobs);
+			extractFilterOptions(allJobs);
 		}
-	}, [allJobs, setJobs]);
+	}, [allJobs, extractFilterOptions]);
 
 	// 모달 필터가 적용되면 실제 필터에 반영
 	useEffect(() => {
@@ -82,18 +85,9 @@ export default function JobsPage() {
 			modalFilters.locations = selectedLocations;
 		}
 
-		// 스킬 필터 적용 - 스킬명을 스킬ID로 변환
+		// 스킬 필터 적용 - 스킬명을 그대로 사용 (API에서 스킬명으로 검색)
 		if (selectedSkills.length > 0) {
-			const skillIds = selectedSkills
-				.map((skillName) => {
-					const skill = popularSkills.find((s) => s.displayName === skillName);
-					return skill ? skill.skill_id : null;
-				})
-				.filter((id) => id !== null) as number[];
-
-			if (skillIds.length > 0) {
-				modalFilters.skill_ids = skillIds;
-			}
+			modalFilters.skill_names = selectedSkills;
 		}
 
 		// 모든 필터가 비어있는 경우 명시적으로 빈 객체로 설정하여 필터 초기화
@@ -117,7 +111,6 @@ export default function JobsPage() {
 		selectedExperience,
 		selectedLocations,
 		selectedSkills,
-		popularSkills,
 		updateFilters,
 	]);
 
@@ -135,11 +128,9 @@ export default function JobsPage() {
 		// 모달 필터 스토어 초기화
 		const { clearAllFilters } = useFilterStore.getState();
 		clearAllFilters();
-		// 포지션 스토어 초기화 후 Web Frontend로 재설정
-		const { clearSelectedPositions, initializeWithWebFrontend } =
-			usePositionsStore.getState();
-		clearSelectedPositions();
-		initializeWithWebFrontend();
+		// 포지션 스토어 초기화
+		const { clearSelectedPositionIds } = useBasicPositionsStore.getState();
+		clearSelectedPositionIds();
 	};
 
 	const handleJobClick = (job: RecruitmentResponse) => {

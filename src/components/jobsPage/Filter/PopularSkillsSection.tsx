@@ -3,11 +3,14 @@
 import React from "react";
 import Image from "next/image";
 
-import { PopularSkillData } from "@constants/popularSkills";
+import {
+	POPULAR_SKILLS_CONFIG,
+	PopularSkillConfig,
+} from "@constants/popularSkills";
 
 interface PopularSkillsSectionProps {
 	title: string;
-	skills: PopularSkillData[];
+	skills: PopularSkillConfig[];
 	selectedSkills: string[];
 	onToggle: (skill: string) => void;
 }
@@ -28,11 +31,6 @@ export function PopularSkillsSection({
 				{skills.map((skill) => {
 					const isSelected = selectedSkills.includes(skill.displayName);
 
-					// ✅ 절대경로 보정
-					const logoSrc = skill.logo_url
-						? `/${skill.logo_url.replace(/^\/+/, "")}`
-						: "/images/skill-fallback.svg";
-
 					return (
 						<button
 							key={skill.skill_id}
@@ -44,16 +42,13 @@ export function PopularSkillsSection({
 							}`}>
 							<div className="w-6 h-6 relative flex-shrink-0">
 								<Image
-									src={logoSrc}
+									src={skill.logo_url}
 									alt={skill.displayName}
 									width={24}
 									height={24}
 									className="object-contain"
 									onError={(e) => {
-										console.error(
-											`이미지 로드 실패: ${skill.displayName}`,
-											skill.designed_logo_url
-										);
+										console.error(`이미지 로드 실패: ${skill.displayName}`);
 									}}
 								/>
 							</div>

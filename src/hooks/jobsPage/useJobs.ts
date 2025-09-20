@@ -1,6 +1,5 @@
 import { RecruitmentFilters } from "@api/types/job.types";
-import { useJobsQuery } from "../queries/useJobsQuery";
-
+import { useJobsQuery } from "@queries/useJobsQuery";
 
 export function useJobs(filters?: RecruitmentFilters) {
 	const {
