@@ -7,7 +7,7 @@ import { PopularSkillsSection } from "@components/jobsPage/Filter/PopularSkillsS
 import {
 	usePositionsQuery,
 	useSkillsQuery,
-	useCompaniesQuery,
+	useParentCompaniesQuery,
 } from "@queries/index";
 import { POPULAR_SKILLS_CONFIG } from "@constants/popularSkills";
 interface FilterModalProps {
@@ -45,7 +45,7 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 		data: companies = [],
 		isLoading: companiesLoading,
 		error: companiesError,
-	} = useCompaniesQuery();
+	} = useParentCompaniesQuery();
 	const {
 		data: skills = [],
 		isLoading: skillsLoading,

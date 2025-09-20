@@ -1,5 +1,5 @@
 import { RecruitmentFilters } from "@api/types/job.types";
-import { useJobsQuery } from "@queries/useJobsQuery";
+import { useRecruitmentQuery } from "@queries/useRecruitmentQuery";
 
 export function useJobs(filters?: RecruitmentFilters) {
 	const {
@@ -8,7 +8,7 @@ export function useJobs(filters?: RecruitmentFilters) {
 		error,
 		refetch,
 		isError,
-	} = useJobsQuery(filters);
+	} = useRecruitmentQuery(filters);
 
 	// 에러 없음 → null
 	// 에러 있음 + Error 객체임 → error.message

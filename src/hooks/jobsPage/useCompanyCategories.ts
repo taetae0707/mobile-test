@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { CompanyParentResponse } from "@api/types/company.types";
-import { useCompaniesQuery } from "@queries/useCompaniesQuery";
+import { useParentCompaniesQuery } from "@queries/useParentCompaniesQuery";
 
 // SRP: 모회사 카테고리 관련 로직만 담당
 export function useCompanyCategories() {
@@ -13,7 +13,7 @@ export function useCompanyCategories() {
 		data: companies = [],
 		isLoading: loading,
 		error: queryError,
-	} = useCompaniesQuery();
+	} = useParentCompaniesQuery();
 
 	const error = queryError
 		? queryError instanceof Error

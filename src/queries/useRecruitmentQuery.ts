@@ -3,7 +3,7 @@ import { RecruitmentApi } from "@api/companies/recruitment-api";
 import { RecruitmentResponse, RecruitmentFilters } from "@api/types/job.types";
 
 //채용공고 API를 React Query로 불러오고 캐시/에러/재시도 등을 관리
-export function useJobsQuery(filters?: RecruitmentFilters) {
+export function useRecruitmentQuery(filters?: RecruitmentFilters) {
 	return useQuery<RecruitmentResponse[]>({
 		queryKey: ["jobs", filters],
 		queryFn: () => RecruitmentApi.getRecruitments(filters),

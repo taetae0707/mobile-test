@@ -1,14 +1,13 @@
 import { CompanyNavIcon } from "@jobsPage/CompanyNav/CompanyNavIcon";
 import { CircleBorder } from "@jobsPage/CompanyNav/CircleBorder";
 import { CompanyParentResponse } from "@api/types/company.types";
+import { useCompanyJobStatus } from "@hooks/jobsPage/useCompanyJobStatus";
 
 interface CompanyCategoryListProps {
 	companies: CompanyParentResponse[];
 	selectedCompany: CompanyParentResponse | null;
 	onCompanySelect: (company: CompanyParentResponse | null) => void;
 	loading?: boolean;
-	// 각 회사별 새 채용공고 여부를 확인하는 함수 (나중에 구현)
-	getHasNewJobs?: (companyId: string) => boolean;
 }
 
 // SRP: 회사 카테고리 목록 관리만 담당
@@ -17,9 +16,10 @@ export function CompanyNavList({
 	selectedCompany,
 	onCompanySelect,
 	loading,
-	getHasNewJobs,
 }: CompanyCategoryListProps) {
-	if (loading) {
+	const { getCompanyStatus, isLoading: jobStatusLoading } =
+		useCompanyJobStatus();
+	if (loading || jobStatusLoading) {
 		return (
 			<section
 				className="flex justify-center py-12"
@@ -40,15 +40,19 @@ export function CompanyNavList({
 				role="tablist"
 				aria-label="회사 선택 탭">
 				{/* 각 회사별 버튼들 */}
-				{companies.map((company) => (
-					<CompanyNavIcon
-						key={company.public_id}
-						company={company}
-						isSelected={selectedCompany?.public_id === company.public_id}
-						onClick={onCompanySelect}
-						hasNewJobs={getHasNewJobs?.(company.public_id) || false}
-					/>
-				))}
+				{companies.map((company) => {
+					const jobStatus = getCompanyStatus(company.name);
+					return (
+						<CompanyNavIcon
+							key={company.public_id}
+							company={company}
+							isSelected={selectedCompany?.public_id === company.public_id}
+							onClick={onCompanySelect}
+							hasNewJobs={jobStatus.hasNewJobs}
+							hasActiveJobs={jobStatus.hasActiveJobs}
+						/>
+					);
+				})}
 			</nav>
 		</section>
 	);

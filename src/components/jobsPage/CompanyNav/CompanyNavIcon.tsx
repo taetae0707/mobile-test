@@ -8,6 +8,7 @@ interface CompanyCategoryProps {
 	isSelected: boolean;
 	onClick: (company: CompanyParentResponse) => void;
 	hasNewJobs?: boolean; // 7일 이내 새 채용공고 여부
+	hasActiveJobs?: boolean; // 현재 채용중인 공고가 있는지
 }
 
 // SRP: 개별 회사 네비게이션 버튼만 담당
@@ -16,6 +17,7 @@ export function CompanyNavIcon({
 	isSelected,
 	onClick,
 	hasNewJobs = false,
+	hasActiveJobs = false,
 }: CompanyCategoryProps) {
 	const [imageError, setImageError] = useState(false);
 
@@ -39,6 +41,7 @@ export function CompanyNavIcon({
 					// 이미지 로드 실패 시 보여줄 기본 아이콘
 					<CircleBorder
 						hasNewJobs={hasNewJobs}
+						hasActiveJobs={hasActiveJobs}
 						isSelected={isSelected}>
 						<div className="flex items-center justify-center w-full h-full">
 							<span className="text-gray-600 text-lg font-bold">
@@ -50,6 +53,7 @@ export function CompanyNavIcon({
 					// 정상 이미지 - 동그라미 테두리로 감싸기
 					<CircleBorder
 						hasNewJobs={hasNewJobs}
+						hasActiveJobs={hasActiveJobs}
 						isSelected={isSelected}>
 						<Image
 							src={company.logo_url}
