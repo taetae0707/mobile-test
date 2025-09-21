@@ -29,7 +29,7 @@ export function CompanyNavIcon({
 		<button
 			onClick={() => onClick(company)}
 			className={`
-				flex-shrink-0 flex flex-col items-center gap-2 cursor-pointer 
+				flex-shrink-0 flex flex-col items-center gap-4 cursor-pointer 
 				transition-all duration-200 hover:scale-110
 			`}
 			role="tab"

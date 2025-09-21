@@ -26,15 +26,21 @@ export function CircleBorder({
 	// 상태에 따른 테두리 색상과 스타일
 	const getBorderStyle = () => {
 		if (hasNewJobs) {
-			return "border-green-500 shadow-green-200"; // 새 채용공고가 있으면 초록색
+			return "border-transparent shadow-lg"; // 새 채용공고가 있으면 그라데이션
 		}
 		if (hasActiveJobs) {
-			return "border-orange-500 shadow-orange-200"; // 채용중이면 주황색
+			return "border-transparent shadow-lg"; // 채용중이면 그라데이션
 		}
-		if (isSelected) {
-			return "border-blue-500 shadow-blue-200"; // 선택된 상태면 파란색
-		}
+
 		return "border-gray-300 shadow-gray-200"; // 기본 회색
+	};
+
+	// 그라데이션 배경 스타일
+	const getGradientStyle = () => {
+		if (hasNewJobs || hasActiveJobs) {
+			return "bg-gradient-to-r from-[#0491F5] to-[#FF05E6]"; // 파란색에서 마젠타로
+		}
+		return "";
 	};
 
 	// 새 채용공고 알림 점
@@ -42,8 +48,8 @@ export function CircleBorder({
 		if (!hasNewJobs) return null;
 
 		return (
-			<div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white animate-pulse">
-				<span className="sr-only">새로운 채용공고 있음</span>
+			<div className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white animate-pulse flex items-center justify-center">
+				<span className="text-white text-xs font-bold">N</span>
 			</div>
 		);
 	};
@@ -53,7 +59,7 @@ export function CircleBorder({
 		if (!hasActiveJobs) return null;
 
 		return (
-			<div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-orange-500 text-white text-xs px-2 py-1 rounded-full border border-white shadow-sm">
+			<div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#0491F5] to-[#FF05E6] text-white text-xs px-3 py-1 rounded-full border border-white shadow-sm w-16">
 				채용중
 			</div>
 		);
@@ -65,11 +71,12 @@ export function CircleBorder({
 				className={`
 				${sizeStyles[size]} rounded-full
 				transition-all duration-200
-				border-2 ${getBorderStyle()}
+				border ${getBorderStyle()}
 				p-1
 				${isSelected ? "scale-110" : ""}
+				${getGradientStyle()}
 			`}>
-				<div className="w-full h-full rounded-full overflow-hidden">
+				<div className="w-full h-full rounded-full overflow-hidden bg-white">
 					{children}
 				</div>
 			</div>

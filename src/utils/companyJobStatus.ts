@@ -2,9 +2,7 @@ import { RecruitmentResponse } from "@api/types/job.types";
 import { CompanyJobStatus } from "@api/types/company.types";
 
 /**
- * 모회사별 채용공고 상태를 확인하는 순수 함수
- * @param companyName 모회사명
- * @param allJobs 모든 채용공고 목록
+ * 모회사별 채용공고 상태를 확인하는 함수
  * @returns 해당 모회사의 채용공고 상태
  */
 export const checkCompanyJobStatus = (

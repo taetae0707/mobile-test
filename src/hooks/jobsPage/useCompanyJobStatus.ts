@@ -8,7 +8,6 @@ import { CompanyJobStatus } from "@api/types/company.types";
 
 /**
  * 모회사별 채용공고 상태를 관리하는 Hook
- * SRP: 채용공고 상태 관리만 담당
  */
 export function useCompanyJobStatus() {
 	const { data: companies = [], isLoading: companiesLoading } =
