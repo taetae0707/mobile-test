@@ -1,5 +1,5 @@
 import { RecruitmentResponse } from "@api/types/job.types";
-import { CompanyLogo, SkillIcon, Badge, LoadingState } from "@jobsPage/common";
+import { CompanyLogo, SkillIcon, Badge, LoadingState } from "@jobsPage/Common";
 
 interface JobCardProps {
 	job: RecruitmentResponse;
@@ -7,32 +7,23 @@ interface JobCardProps {
 }
 
 export function JobCard({ job, onClick }: JobCardProps) {
-	const handleClick = () => {
-		if (onClick) {
-			onClick(job);
-		} else if (job.link) {
-			window.open(job.link, "_blank", "noopener,noreferrer");
-		}
+	const handleClick = (e: React.MouseEvent) => {
+		onClick?.(job);
 	};
 
 	return (
-		<article
-			className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow duration-200 cursor-pointer"
+		<a
+			href={job.link}
+			target="_blank"
+			rel="noopener noreferrer"
+			className="block bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow duration-200 cursor-pointer"
 			onClick={handleClick}
-			role="button"
-			tabIndex={0}
-			onKeyDown={(e) => {
-				if (e.key === "Enter" || e.key === " ") {
-					e.preventDefault();
-					handleClick();
-				}
-			}}
 			aria-label={`${job.title} 채용공고`}>
 			<div className="flex items-start gap-4">
 				{/* 회사 로고 */}
 				<CompanyLogo
 					logoUrl={job.parent_company_logo_url}
-					companyName={job.company_name}
+					companyName={job.parent_company_name}
 				/>
 
 				{/* 채용공고 정보 */}
@@ -82,6 +73,6 @@ export function JobCard({ job, onClick }: JobCardProps) {
 					</div>
 				</div>
 			</div>
-		</article>
+		</a>
 	);
 }

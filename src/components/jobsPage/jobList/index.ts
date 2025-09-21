@@ -1,2 +1,2 @@
-export { JobList } from "@jobsPage/jobList/JobCardList";
-export { JobCard } from "@jobsPage/jobList/JobCard";
+export { JobList } from "@jobsPage/JobList/JobCardList";
+export { JobCard } from "@jobsPage/JobList/JobCard";

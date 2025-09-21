@@ -1,4 +1,4 @@
-import { JobCard } from "@jobsPage/jobList/JobCard";
+import { JobCard } from "@jobsPage/JobList/JobCard";
 import { RecruitmentResponse } from "@api/types/job.types";
 
 interface JobListProps {
