@@ -77,15 +77,6 @@ export function FilterButtonsRow({
 					</svg>
 				</button>
 			</div>
-
-			{/* 총 건수 표시 */}
-			{/* <div className="flex items-center justify-between">
-				<div className="text-sm text-gray-600">
-					총 <span className="font-medium text-gray-900">{totalJobsCount}</span>
-					건
-				</div>
-	
-			</div> */}
 		</div>
 	);
 }

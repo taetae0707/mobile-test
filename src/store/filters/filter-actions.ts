@@ -64,4 +64,25 @@ export const createFilterActions = (set: any, get: () => FilterStore) => ({
 	clearExperience: () => set({ selectedExperience: [] }),
 	clearLocations: () => set({ selectedLocations: [] }),
 	clearSkills: () => set({ selectedSkills: [] }),
+
+	// 전체 선택/해제 액션
+	selectAllPositions: (positionIds: number[]) => {
+		set({ selectedPositions: positionIds });
+	},
+
+	selectAllCompanies: (companyNames: string[]) => {
+		set({ selectedCompanies: companyNames });
+	},
+
+	selectAllExperience: (experienceTypes: string[]) => {
+		set({ selectedExperience: experienceTypes });
+	},
+
+	selectAllLocations: (locationNames: string[]) => {
+		set({ selectedLocations: locationNames });
+	},
+
+	selectAllSkills: (skillIds: number[]) => {
+		set({ selectedSkills: skillIds });
+	},
 });

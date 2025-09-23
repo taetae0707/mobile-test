@@ -2,7 +2,7 @@
 
 import { useFilterStore } from "@store/filters";
 // import { useBasicPositionsStore } from "@store/basicPositions";
-import { FilterSection } from "@components/jobsPage/Filter/FilterSection";
+import { FilterButton } from "@components/jobsPage/Filter/FilterButton";
 import { PopularSkillsSection } from "@components/jobsPage/Filter/PopularSkillsSection";
 import {
 	usePositionsQuery,
@@ -57,7 +57,7 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 
 	if (!isModalOpen) return null;
 
-	// 데이터를 FilterSection에 맞는 형태로 변환
+	// 데이터를 FilterButton에 맞는 형태로 변환
 	const positionOptions = positions.map((position) => ({
 		id: position.position_id,
 		name: position.title,
@@ -133,29 +133,33 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 
 						{!loading && !error && (
 							<>
-								<FilterSection
+								<FilterButton
 									title="직군선택"
 									options={positionOptions}
 									selectedItems={selectedPositions}
 									onToggle={(item) => togglePosition(item as number)}
+									showSelectAllOption={true}
 								/>
-								<FilterSection
+								<FilterButton
 									title="회사 선택"
 									options={companyOptions}
 									selectedItems={selectedCompanies}
 									onToggle={(item) => toggleCompany(item as string)}
+									showSelectAllOption={true}
 								/>
-								<FilterSection
+								<FilterButton
 									title="경력"
 									options={experienceOptionsList}
 									selectedItems={selectedExperience}
 									onToggle={(item) => toggleExperience(item as string)}
+									showSelectAllOption={true}
 								/>
-								<FilterSection
+								<FilterButton
 									title="위치"
 									options={locationOptionsList}
 									selectedItems={selectedLocations}
 									onToggle={(item) => toggleLocation(item as string)}
+									showSelectAllOption={true}
 								/>
 								<PopularSkillsSection
 									title="인기스택"

@@ -46,6 +46,13 @@ export interface FilterActions {
 	clearLocations: () => void;
 	clearSkills: () => void;
 
+	// 전체 선택/해제
+	selectAllPositions: (positionIds: number[]) => void;
+	selectAllCompanies: (companyNames: string[]) => void;
+	selectAllExperience: (experienceTypes: string[]) => void;
+	selectAllLocations: (locationNames: string[]) => void;
+	selectAllSkills: (skillIds: number[]) => void;
+
 	// 필터 적용
 	applyFilters: () => void;
 
