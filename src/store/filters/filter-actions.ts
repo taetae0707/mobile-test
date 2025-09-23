@@ -7,11 +7,11 @@ export const createFilterActions = (set: any, get: () => FilterStore) => ({
 		set({ basicPositionId: positionId });
 	},
 
-	togglePosition: (position: string) => {
+	togglePosition: (positionId: number, positionName?: string) => {
 		const { selectedPositions } = get();
-		const newSelected = selectedPositions.includes(position)
-			? selectedPositions.filter((p) => p !== position)
-			: [...selectedPositions, position];
+		const newSelected = selectedPositions.includes(positionId)
+			? selectedPositions.filter((p) => p !== positionId)
+			: [...selectedPositions, positionId];
 		set({ selectedPositions: newSelected });
 	},
 

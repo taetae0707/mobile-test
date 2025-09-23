@@ -39,20 +39,20 @@ export function useModalFilters(): UseBasicJobsWithFiltersReturn {
 	// 4. 필터링 로직
 	const filteredJobs = useMemo(() => {
 		return allJobs.filter((job) => {
-			// 포지션 ID 필터 (기본 필터)
-			if (
-				filters.position_ids &&
-				!filters.position_ids.includes(job.position_id)
-			) {
-				return false;
-			}
+			//포지션 필터 (기본 필터 + 모달 선택 포지션)
+			//채용공고의 position title과 필터의 position id를 비교
+			if (filters.position_ids || filters.position_titles) {
+				const matchesBasicFilter = filters.position_ids?.includes(
+					job.position_id
+				);
+				const matchesModalFilter = filters.position_titles?.includes(
+					job.position_title
+				);
 
-			// 포지션 필터 (모달에서 추가 선택된 포지션들)
-			if (
-				filters.position_titles &&
-				!filters.position_titles.includes(job.position_title)
-			) {
-				return false; //새로운 배열에 포함되지 않음
+				// 두 필터 중 하나라도 만족하지 않으면 제외
+				if (!(matchesBasicFilter || matchesModalFilter)) {
+					return false;
+				}
 			}
 
 			// 경력 필터

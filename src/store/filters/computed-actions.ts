@@ -10,13 +10,11 @@ export const createComputedActions = (get: () => FilterStore) => ({
 		const state = get(); //사용자의 필터 선택 값들이 저장된 스토어의 현재 상태 or 초기값
 		const filters: RecruitmentFilters = {};
 
-		// 기본 포지션 필터 (항상 적용됨, 기본값: 1 = Web Frontend)
-		filters.position_ids = [state.basicPositionId];
-
-		// 모달 포지션 필터 (추가 선택된 포지션들)
-		if (state.selectedPositions.length > 0) {
-			filters.position_titles = state.selectedPositions;
-		}
+		filters.position_ids = [
+			state.basicPositionId, //기본 필터값(프엔)
+			...state.selectedPositions.filter((id) => id !== state.basicPositionId),
+			//기본 필터값 제외한 나머지 포지션 필터값
+		];
 
 		// 회사 필터
 		if (state.selectedCompanies.length > 0) {
@@ -59,9 +57,15 @@ export const createComputedActions = (get: () => FilterStore) => ({
 			? selectedPosition.title
 			: "Web Frontend";
 
-		// 모달에서 추가 선택된 포지션이 있으면 "외 N개" 표시
-		if (selectedPositions.length > 0) {
-			return `${basicText} 외 ${selectedPositions.length}개`;
+		// 기본 포지션과 다른 추가 선택된 포지션만 필터링
+		// 이제 selectedPositions는 ID 배열이므로 basicPositionId와 비교
+		const additionalPositions = selectedPositions.filter(
+			(positionId) => positionId !== basicPositionId
+		);
+
+		// 기본 포지션과 다른 추가 포지션이 있으면 "외 N개" 표시
+		if (additionalPositions.length > 0) {
+			return `${basicText} 외 ${additionalPositions.length}개`;
 		}
 
 		return basicText;

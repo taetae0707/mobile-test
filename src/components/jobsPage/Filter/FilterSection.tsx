@@ -3,8 +3,8 @@
 interface FilterSectionProps {
 	title: string;
 	options: Array<{ id: string | number; name: string }>;
-	selectedItems: string[];
-	onToggle: (item: string) => void;
+	selectedItems: (string | number)[];
+	onToggle: (item: string | number, itemName?: string) => void;
 }
 
 export function FilterSection({
@@ -21,11 +21,20 @@ export function FilterSection({
 			</div>
 			<div className="flex flex-wrap gap-2">
 				{options.map((option) => {
-					const isSelected = selectedItems.includes(option.name);
+					// 직군선택일 경우 ID로 비교, 그 외에는 이름으로 비교
+					const isSelected =
+						title === "직군선택"
+							? selectedItems.includes(option.id)
+							: selectedItems.includes(option.name);
+
 					return (
 						<button
 							key={option.id}
-							onClick={() => onToggle(option.name)}
+							onClick={() =>
+								title === "직군선택"
+									? onToggle(option.id, option.name)
+									: onToggle(option.name)
+							}
 							className={`px-4 py-2 text-sm font-medium rounded-lg border transition-colors ${
 								isSelected
 									? "bg-blue-50 text-blue-700 border-blue-300"

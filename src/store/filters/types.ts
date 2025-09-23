@@ -9,7 +9,7 @@ export interface FilterState {
 	basicPositionId: number; // 기본값: 1 (Web Frontend)
 
 	// 선택된 필터들 (모달에서 사용)
-	selectedPositions: string[];
+	selectedPositions: number[]; // 포지션은 ID로 저장
 	selectedCompanies: string[];
 	selectedExperience: string[];
 	selectedLocations: string[];
@@ -32,7 +32,7 @@ export interface FilterActions {
 	setBasicPositionId: (positionId: number) => void;
 
 	// 모달 필터 선택
-	togglePosition: (position: string) => void;
+	togglePosition: (positionId: number, positionName?: string) => void;
 	toggleCompany: (company: string) => void;
 	toggleExperience: (experience: string) => void;
 	toggleLocation: (location: string) => void;
