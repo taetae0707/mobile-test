@@ -1,5 +1,5 @@
 import { RecruitmentResponse } from "@api/types/job.types";
-import { CompanyLogo, SkillIcon, Badge, LoadingState } from "@jobsPage/Common";
+import { CompanyLogo, SkillIcon, Badge, LoadingState } from "@jobsPage/common";
 
 interface JobCardProps {
 	job: RecruitmentResponse;

@@ -61,11 +61,11 @@ export interface ApiResponse<T> {
 export type RecruitmentApiResponse = ApiResponse<RecruitmentResponse[]>;
 
 // --- 선택 필터 타입 (요청 파라미터) ---
-export type ExperienceLevel = "인턴" | "주니어" | "시니어";
+// export type ExperienceLevel = "인턴" | "주니어" | "시니어";
 
 export interface RecruitmentFilters {
 	skill_ids?: number[];
-	experience_years?: ExperienceLevel[];
+	experience_years?: string[];
 	position_titles?: string[];
 	position_ids?: number[];
 	company_names?: string[];

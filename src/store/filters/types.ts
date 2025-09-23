@@ -5,12 +5,15 @@ export interface FilterState {
 	experienceOptions: string[];
 	locationOptions: string[];
 
-	// 선택된 필터들
+	// 기본 필터 상태 (BasicFilter에서 사용)
+	basicPositionId: number; // 기본값: 1 (Web Frontend)
+
+	// 선택된 필터들 (모달에서 사용)
 	selectedPositions: string[];
 	selectedCompanies: string[];
 	selectedExperience: string[];
 	selectedLocations: string[];
-	selectedSkills: string[];
+	selectedSkills: number[];
 
 	// UI 상태
 	isModalOpen: boolean;
@@ -25,12 +28,15 @@ export interface FilterActions {
 	openModal: (type: string) => void;
 	closeModal: () => void;
 
-	// 필터 선택
+	// 기본 필터 액션
+	setBasicPositionId: (positionId: number) => void;
+
+	// 모달 필터 선택
 	togglePosition: (position: string) => void;
 	toggleCompany: (company: string) => void;
 	toggleExperience: (experience: string) => void;
 	toggleLocation: (location: string) => void;
-	toggleSkill: (skill: string) => void;
+	toggleSkill: (skillId: number) => void;
 
 	// 필터 초기화
 	clearAllFilters: () => void;
@@ -42,6 +48,10 @@ export interface FilterActions {
 
 	// 필터 적용
 	applyFilters: () => void;
+
+	// 계산된 값 제공
+	getAppliedFilters: () => any;
+	getPositionDisplayText: (positions: any[]) => string;
 }
 
 export type FilterStore = FilterState & FilterActions;
