@@ -58,7 +58,7 @@ export function useModalFilters(): UseBasicJobsWithFiltersReturn {
 			// 경력 필터
 			if (
 				filters.experience_years &&
-				!filters.experience_years.includes(job.experience_years as any)
+				!filters.experience_years.includes(job.experience_years)
 			) {
 				return false;
 			}

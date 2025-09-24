@@ -59,12 +59,19 @@ export function JobCard({ job, onClick }: JobCardProps) {
 
 					{/* 기술 스택 */}
 					<div className="flex items-center gap-2">
-						{job.skills.slice(0, 5).map((skill) => (
-							<SkillIcon
-								key={skill.skill_id}
-								skill={skill}
-							/>
-						))}
+						{job.skills
+							.filter(
+								(skill, index, self) =>
+									self.findIndex((s) => s.skill_id === skill.skill_id) === index
+							)
+							.slice(0, 5)
+							.map((skill) => (
+								<SkillIcon
+									key={skill.skill_id}
+									skill={skill}
+								/>
+							))}
+
 						{job.skills.length > 5 && (
 							<span className="text-gray-400 text-sm ml-1">
 								+{job.skills.length - 5}
