@@ -114,13 +114,7 @@ export default function JobsPage() {
 				/>
 			</section>
 
-			{/* 필터 모달 */}
-			<FilterModal
-				onFiltersApplied={() => {
-					// 필터 적용 후 강제로 useEffect 트리거
-					console.log("필터가 적용되었습니다.");
-				}}
-			/>
+			<FilterModal />
 		</main>
 	);
 }

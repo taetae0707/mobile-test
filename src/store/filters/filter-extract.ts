@@ -9,7 +9,7 @@ export const createDataActions = (set: any, get: () => any) => ({
 	extractFilterOptions: (jobs: RecruitmentResponse[]) => {
 		// 경력 옵션 추출
 		const experienceSet = new Set<string>();
-		experienceSet.add("경력무관");
+		// experienceSet.add("경력무관");
 		jobs.forEach((job) => {
 			if (job.experience_years) {
 				experienceSet.add(job.experience_years);
@@ -18,7 +18,6 @@ export const createDataActions = (set: any, get: () => any) => ({
 
 		// 위치 옵션 추출
 		const locationSet = new Set<string>();
-		locationSet.add("전체");
 		jobs.forEach((job) => {
 			if (job.company_address_depth1) {
 				locationSet.add(job.company_address_depth1);

@@ -8,19 +8,19 @@ import {
 	PopularSkillConfig,
 } from "@constants/popularSkills";
 
-interface PopularSkillsSectionProps {
+interface PopularSkillsButtonProps {
 	title: string;
 	skills: PopularSkillConfig[];
 	selectedSkills: number[];
 	onToggle: (skillId: number) => void;
 }
 
-export function PopularSkillsSection({
+export function PopularSkillsButton({
 	title,
 	skills,
 	selectedSkills,
 	onToggle,
-}: PopularSkillsSectionProps) {
+}: PopularSkillsButtonProps) {
 	return (
 		<div className="mb-8">
 			<div className="flex items-center justify-between gap-4 mb-4">

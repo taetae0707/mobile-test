@@ -2,19 +2,18 @@
 
 import { useFilterStore } from "@store/filters";
 // import { useBasicPositionsStore } from "@store/basicPositions";
-import { FilterButton } from "@components/jobsPage/Filter/FilterButton";
-import { PopularSkillsSection } from "@components/jobsPage/Filter/PopularSkillsSection";
+import { FilterButton, PopularSkillsButton } from "@components/jobsPage/Filter";
 import {
 	usePositionsQuery,
 	useSkillsQuery,
 	useParentCompaniesQuery,
 } from "@queries/index";
 import { POPULAR_SKILLS_CONFIG } from "@constants/popularSkills";
-interface FilterModalProps {
-	onFiltersApplied?: () => void;
-}
+// interface FilterModalProps {
+// 	onFiltersApplied?: () => void;
+// }
 
-export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
+export function FilterModal() {
 	const {
 		isModalOpen,
 		activeModalType,
@@ -161,7 +160,7 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 									onToggle={(item) => toggleLocation(item as string)}
 									showSelectAllOption={true}
 								/>
-								<PopularSkillsSection
+								<PopularSkillsButton
 									title="인기스택"
 									skills={POPULAR_SKILLS_CONFIG}
 									selectedSkills={selectedSkills}
@@ -182,9 +181,9 @@ export function FilterModal({ onFiltersApplied }: FilterModalProps = {}) {
 							onClick={() => {
 								applyFilters();
 								// 필터 적용 후 콜백 실행
-								if (onFiltersApplied) {
-									onFiltersApplied();
-								}
+								// if (onFiltersApplied) {
+								// 	onFiltersApplied();
+								// }
 							}}
 							className="px-6 py-2 text-sm font-medium text-white bg-black rounded-lg hover:bg-gray-800 transition-colors">
 							{selectedPositions.length +

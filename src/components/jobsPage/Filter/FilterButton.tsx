@@ -52,7 +52,8 @@ export function FilterButton({
 					? selectedItems.includes(opt.id) //id로 선택한 필터목록에 있는지 확인
 					: selectedItems.includes(opt.name); //name으로 ..
 
-				if (!isSelected) handleFilterClick(opt);
+					//
+				if (!isSelected) handleFilterClick(opt); //모든 옵션 선택
 			});
 		}
 	};
