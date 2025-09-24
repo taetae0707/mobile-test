@@ -11,7 +11,7 @@ export function FilterButtonsRow({
 	totalJobsCount,
 	onResetFilters,
 }: FilterButtonsRowProps) {
-	const { openModal } = useFilterStore();
+	const { openModal, getFilterDisplayText } = useFilterStore();
 
 	const filterButtons = [
 		{ id: "all", label: "전체필터", hasDropdown: false },
@@ -40,7 +40,9 @@ export function FilterButtonsRow({
 						key={button.id}
 						onClick={() => handleFilterClick(button.id)}
 						className="flex items-center px-4 py-2 text-sm font-medium bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-						<span className="text-gray-700">{button.label}</span>
+						<span className="text-gray-700">
+							{getFilterDisplayText(button.id)}
+						</span>
 						{button.hasDropdown && (
 							<svg
 								className="ml-1 h-4 w-4 text-gray-500"

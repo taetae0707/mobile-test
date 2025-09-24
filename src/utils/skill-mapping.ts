@@ -6,7 +6,7 @@ const SKILL_ID_TO_NAME_MAP = Object.fromEntries(
 	//Object.entries(): 객체를 [key, value] 형태의 배열로 만든다.
 );
 
-export const getSkillNameByIdEfficient = (skillId: number): string => {
+export const getSkillNameById = (skillId: number): string => {
 	return SKILL_ID_TO_NAME_MAP[skillId] || `Unknown Skill (${skillId})`;
 };
 

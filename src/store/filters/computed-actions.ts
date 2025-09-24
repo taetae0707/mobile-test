@@ -1,6 +1,7 @@
 import { FilterStore } from "./types";
 import { RecruitmentFilters } from "@api/types/job.types";
 import { PositionResponse } from "@api/types";
+import { getSkillNameById } from "@utils/skill-mapping";
 
 //'무엇을' 필터링할지 규칙 정의
 export const createComputedActions = (get: () => FilterStore) => ({
@@ -69,5 +70,56 @@ export const createComputedActions = (get: () => FilterStore) => ({
 		}
 
 		return basicText;
+	},
+
+	// 필터 타입별 표시 텍스트 생성
+	getFilterDisplayText: (filterType: string): string => {
+		const state = get();
+
+		switch (filterType) {
+			case "company":
+				if (state.selectedCompanies.length === 0) {
+					return "회사별";
+				} else if (state.selectedCompanies.length === 1) {
+					return state.selectedCompanies[0];
+				} else {
+					return `${state.selectedCompanies[0]} 외 ${state.selectedCompanies.length - 1}개`;
+				}
+
+			case "experience":
+				if (state.selectedExperience.length === 0) {
+					return "경력 요건";
+				} else if (state.selectedExperience.length === 1) {
+					return state.selectedExperience[0];
+				} else {
+					return `${state.selectedExperience[0]} 외 ${state.selectedExperience.length - 1}개`;
+				}
+
+			case "skills":
+				if (state.selectedSkills.length === 0) {
+					return "기술 스택";
+				} else if (state.selectedSkills.length === 1) {
+					const skillName = getSkillNameById(state.selectedSkills[0]);
+					return skillName;
+				} else {
+					const firstSkillName = getSkillNameById(state.selectedSkills[0]);
+					return `${firstSkillName} 외 ${state.selectedSkills.length - 1}개`;
+				}
+
+			case "location":
+				if (state.selectedLocations.length === 0) {
+					return "위치";
+				} else if (state.selectedLocations.length === 1) {
+					return state.selectedLocations[0];
+				} else {
+					return `${state.selectedLocations[0]} 외 ${state.selectedLocations.length - 1}개`;
+				}
+
+			case "all":
+				return "전체필터";
+
+			default:
+				return "";
+		}
 	},
 });

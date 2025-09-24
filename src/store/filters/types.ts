@@ -59,6 +59,7 @@ export interface FilterActions {
 	// 계산된 값 제공
 	getAppliedFilters: () => any;
 	getPositionDisplayText: (positions: any[]) => string;
+	getFilterDisplayText: (filterType: string) => string;
 }
 
 export type FilterStore = FilterState & FilterActions;
