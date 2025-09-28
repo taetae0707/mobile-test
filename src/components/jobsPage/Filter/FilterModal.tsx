@@ -3,11 +3,13 @@
 import { useFilterStore } from "@store/filters";
 // import { useBasicPositionsStore } from "@store/basicPositions";
 import { FilterButton } from "@components/jobsPage/Filter";
+import { SkillSearch } from "@components/jobsPage/Filter/SkillSearch";
 import {
 	usePositionsQuery,
 	useSkillsQuery,
 	useParentCompaniesQuery,
 } from "@queries/index";
+import { useEffect } from "react";
 // interface FilterModalProps {
 // 	onFiltersApplied?: () => void;
 // }
@@ -19,6 +21,9 @@ export function FilterModal() {
 		experienceOptions,
 		locationOptions,
 		popularSkillsOptions,
+		searchQuery,
+		filteredSearchSkills,
+		selectedSearchSkills,
 		selectedPositions,
 		selectedCompanies,
 		selectedExperience,
@@ -30,8 +35,12 @@ export function FilterModal() {
 		toggleExperience,
 		toggleLocation,
 		toggleSkill,
+		setSearchQuery,
+		toggleSearchSkill,
+		clearSearchSkills,
 		clearAllFilters,
 		applyFilters,
+		extractAllSkills,
 	} = useFilterStore();
 
 	// React Query로 데이터 가져오기
@@ -53,6 +62,13 @@ export function FilterModal() {
 
 	const loading = positionsLoading || companiesLoading || skillsLoading;
 	const error = positionsError || companiesError || skillsError;
+
+	// 전체 스킬 데이터가 로드되면 스토어에 저장
+	useEffect(() => {
+		if (skills.length > 0) {
+			extractAllSkills(skills);
+		}
+	}, [skills, extractAllSkills]);
 
 	if (!isModalOpen) return null;
 
@@ -171,6 +187,14 @@ export function FilterModal() {
 									onToggle={(item) => toggleSkill(item as number)}
 									showSelectAllOption={true}
 								/>
+								<SkillSearch
+									searchQuery={searchQuery}
+									filteredSkills={filteredSearchSkills}
+									selectedSkills={selectedSearchSkills}
+									onSearchChange={setSearchQuery}
+									onSkillToggle={toggleSearchSkill}
+									onClearSearch={clearSearchSkills}
+								/>
 							</>
 						)}
 					</div>
@@ -195,7 +219,8 @@ export function FilterModal() {
 								selectedCompanies.length +
 								selectedExperience.length +
 								selectedLocations.length +
-								selectedSkills.length}
+								selectedSkills.length +
+								selectedSearchSkills.length}
 							개의 필터 적용하기
 						</button>
 					</div>

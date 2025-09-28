@@ -2,7 +2,12 @@
 export { useFilterStore } from "./filters-store";
 
 // Type exports
-export type { FilterState, FilterActions, FilterStore } from "./types";
+export type {
+	FilterState,
+	FilterActions,
+	FilterStore,
+	SkillOption,
+} from "./types";
 
 // Action exports
 export { createComputedActions } from "./computed-actions";

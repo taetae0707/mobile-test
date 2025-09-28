@@ -1,6 +1,8 @@
 export { useFilterStore } from "./filters-store";
 export type { FilterState, FilterActions, FilterStore } from "./types";
+export type { SkillOption } from "./types";
 import { RecruitmentResponse } from "@api/types";
+import { SkillResponse } from "@api/types/skill.types";
 import { POPULAR_SKILL_NAMES } from "@constants/popularSkillNames";
 
 //RecruitmentResponse 데이터에서 필터 옵션을 추출하는 규칙
@@ -50,5 +52,16 @@ export const createDataActions = (set: any, get: () => any) => ({
 			locationOptions: Array.from(locationSet).sort(),
 			popularSkillsOptions: Array.from(popularSkillsMap.values()),
 		});
+	},
+
+	// 전체 스킬 추출 (API에서 받은 데이터를 SkillOption 형태로 변환)
+	extractAllSkills: (skillsFromApi: SkillResponse[]) => {
+		const allSkillsOptions = skillsFromApi.map((skill) => ({
+			skill_id: skill.skill_id,
+			skill_name: skill.skill_name,
+			logo_url: skill.logo_url,
+		}));
+
+		set({ allSkillsOptions });
 	},
 });

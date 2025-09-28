@@ -34,7 +34,7 @@ export function BasicFilter() {
 
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-	// 포지션별 채용공고 개수 계산 (SRP: 단일 책임 원칙 적용)
+	// 포지션별 채용공고 개수 계산
 	const positionCounts = useMemo(() => {
 		if (!recruitments.length || !positions.length) return {};
 

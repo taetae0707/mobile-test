@@ -40,16 +40,26 @@ export const createComputedActions = (get: () => FilterStore) => ({
 			filters.locations = state.selectedLocations;
 		}
 
-		// 스킬 필터 - skill_ids를 skill_names로 변환
-		if (state.selectedSkills.length > 0) {
-			console.log("- selectedSkills:", state.selectedSkills);
-			console.log("- popularSkillsOptions:", state.popularSkillsOptions);
+		// 스킬 필터 - 인기스택 + 검색스택 통합하여 skill_names로 변환
+		const allSelectedSkillIds = [
+			...state.selectedSkills, // 인기스택 IDs
+			...state.selectedSearchSkills, // 검색스택 IDs
+		];
 
-			const skillNames = state.selectedSkills
+		if (allSelectedSkillIds.length > 0) {
+			console.log("- 통합 selectedSkills:", allSelectedSkillIds);
+			console.log("- popularSkillsOptions:", state.popularSkillsOptions);
+			console.log("- allSkillsOptions:", state.allSkillsOptions);
+
+			// 모든 스킬 옵션에서 skill_name 찾기
+			const allSkillOptions = [
+				...state.popularSkillsOptions, // 인기스택 옵션들
+				...state.allSkillsOptions, // 전체스택 옵션들
+			];
+
+			const skillNames = allSelectedSkillIds
 				.map((skillId) => {
-					const skill = state.popularSkillsOptions.find(
-						(s) => s.skill_id === skillId
-					);
+					const skill = allSkillOptions.find((s) => s.skill_id === skillId);
 					console.log(`- skillId ${skillId} → skill:`, skill);
 					return skill ? skill.skill_name : null;
 				})
@@ -115,23 +125,46 @@ export const createComputedActions = (get: () => FilterStore) => ({
 				}
 
 			case "skills":
-				if (state.selectedSkills.length === 0) {
+				const totalSelected =
+					state.selectedSkills.length + state.selectedSearchSkills.length;
+
+				if (totalSelected === 0) {
 					return "기술 스택";
-				} else if (state.selectedSkills.length === 1) {
-					const skill = state.popularSkillsOptions.find(
-						(s) => s.skill_id === state.selectedSkills[0]
+				} else if (totalSelected === 1) {
+					// 첫 번째 선택된 스킬 찾기 (인기스택 우선)
+					const firstSkillId =
+						state.selectedSkills.length > 0
+							? state.selectedSkills[0]
+							: state.selectedSearchSkills[0];
+
+					const allSkillOptions = [
+						...state.popularSkillsOptions,
+						...state.allSkillsOptions,
+					];
+					const skill = allSkillOptions.find(
+						(s) => s.skill_id === firstSkillId
 					);
 					console.log("- 첫 번째 스킬 찾기:", skill);
 					const result = skill ? skill.skill_name : "기술 스택";
 					console.log("- 결과:", result);
 					return result;
 				} else {
-					const skill = state.popularSkillsOptions.find(
-						(s) => s.skill_id === state.selectedSkills[0]
+					// 복수 선택 시
+					const firstSkillId =
+						state.selectedSkills.length > 0
+							? state.selectedSkills[0]
+							: state.selectedSearchSkills[0];
+
+					const allSkillOptions = [
+						...state.popularSkillsOptions,
+						...state.allSkillsOptions,
+					];
+					const skill = allSkillOptions.find(
+						(s) => s.skill_id === firstSkillId
 					);
 					console.log("- 첫 번째 스킬 찾기:", skill);
-					const firstSkillName = skill ? skill.skill_name : "기술 스택";
-					const result = `${firstSkillName} 외 ${state.selectedSkills.length - 1}개`;
+					const firstName = skill ? skill.skill_name : "기술 스택";
+					const result = `${firstName} 외 ${totalSelected - 1}개`;
 					console.log("- 결과:", result);
 					return result;
 				}

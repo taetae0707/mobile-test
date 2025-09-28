@@ -1,20 +1,29 @@
 import { RecruitmentResponse } from "@api/types";
 
+// 공통 스킬 옵션 인터페이스
+export interface SkillOption {
+	skill_id: number;
+	skill_name: string;
+	logo_url: string;
+}
+
 export interface FilterState {
 	// 동적 필터 옵션들 (jobs 데이터에서 추출)
 	experienceOptions: string[];
 	locationOptions: string[];
-	popularSkillsOptions: Array<{
-		skill_id: number;
-		skill_name: string;
-		logo_url: string;
-	}>;
+	popularSkillsOptions: SkillOption[];
+
+	// 전체 스킬 관련 (검색용)
+	allSkillsOptions: SkillOption[];
+	searchQuery: string;
+	filteredSearchSkills: SkillOption[];
+	selectedSearchSkills: number[];
 
 	// 기본 필터 상태 (BasicFilter에서 사용)
 	basicPositionId: number; // 기본값: 1 (Web Frontend)
 
 	// 선택된 필터들 (모달에서 사용)
-	selectedPositions: number[]; // 포지션은 ID로 저장
+	selectedPositions: number[];
 	selectedCompanies: string[];
 	selectedExperience: string[];
 	selectedLocations: string[];
@@ -28,6 +37,7 @@ export interface FilterState {
 export interface FilterActions {
 	// 필터 옵션 추출
 	extractFilterOptions: (jobs: RecruitmentResponse[]) => void;
+	extractAllSkills: (skills: any[]) => void;
 
 	// 모달 제어
 	openModal: (type: string) => void;
@@ -42,6 +52,11 @@ export interface FilterActions {
 	toggleExperience: (experience: string) => void;
 	toggleLocation: (location: string) => void;
 	toggleSkill: (skillId: number) => void;
+
+	// 검색 관련 액션
+	setSearchQuery: (query: string) => void;
+	toggleSearchSkill: (skillId: number) => void;
+	clearSearchSkills: () => void;
 
 	// 필터 초기화
 	clearAllFilters: () => void;
