@@ -15,14 +15,6 @@ export const createModalActions = (set: any, get: () => any) => ({
 	applyFilters: () => {
 		const state = get();
 
-		console.log("필터 적용됨:", {
-			positions: state.selectedPositions,
-			companies: state.selectedCompanies,
-			experience: state.selectedExperience,
-			locations: state.selectedLocations,
-			skills: state.selectedSkills,
-		});
-
 		setTimeout(() => {
 			set({ isModalOpen: false, activeModalType: null });
 		}, 0);

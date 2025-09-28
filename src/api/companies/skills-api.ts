@@ -8,12 +8,10 @@ export const SkillsApi = {
 	// 기술 스택 목록 조회 - PositionsApi와 동일한 패턴으로 수정
 	getSkills: async (): Promise<SkillResponse[]> => {
 		try {
-			console.log("Skills API 호출 시작:", PATH);
 			const response = await customAxios.get<
 				SkillResponse[],
 				SkillsApiResponse
 			>(PATH);
-			console.log("Skills API 응답:", response);
 
 			// PositionsApi와 동일하게 response.data 반환
 			return response.data;

@@ -1,6 +1,6 @@
 // 기술 스택 API 응답 타입
 export interface SkillResponse {
-	name: string;
+	skill_name: string;
 	skill_id: number;
 	public_id: string;
 	logo_url: string;

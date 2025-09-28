@@ -9,6 +9,7 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
 	basicPositionId: 1, // 기본값: Web Frontend
 	experienceOptions: [],
 	locationOptions: [],
+	popularSkillsOptions: [],
 	selectedPositions: [],
 	selectedCompanies: [],
 	selectedExperience: [],

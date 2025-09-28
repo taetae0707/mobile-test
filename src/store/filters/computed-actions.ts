@@ -1,7 +1,6 @@
 import { FilterStore } from "./types";
 import { RecruitmentFilters } from "@api/types/job.types";
 import { PositionResponse } from "@api/types";
-import { getSkillNameById } from "@utils/skill-mapping";
 
 //'무엇을' 필터링할지 규칙 정의
 export const createComputedActions = (get: () => FilterStore) => ({
@@ -20,6 +19,9 @@ export const createComputedActions = (get: () => FilterStore) => ({
 		// 회사 필터
 		if (state.selectedCompanies.length > 0) {
 			filters.company_names = state.selectedCompanies;
+			//필터 객체에 company_names 속성을 추가하고 선택된 회사 목록을 넣겠다
+			//사용자가 필터 모달에서 회사를 선택할 때 toggleCompany 함수를 통해 스토어에 저장
+			//데이터 흐름: 사용자 선택 → 스토어 저장 → 필터 변환 → 채용공고 필터링
 		}
 
 		// 경력 필터
@@ -38,9 +40,26 @@ export const createComputedActions = (get: () => FilterStore) => ({
 			filters.locations = state.selectedLocations;
 		}
 
-		// 스킬 필터
+		// 스킬 필터 - skill_ids를 skill_names로 변환
 		if (state.selectedSkills.length > 0) {
-			filters.skill_ids = state.selectedSkills;
+			console.log("- selectedSkills:", state.selectedSkills);
+			console.log("- popularSkillsOptions:", state.popularSkillsOptions);
+
+			const skillNames = state.selectedSkills
+				.map((skillId) => {
+					const skill = state.popularSkillsOptions.find(
+						(s) => s.skill_id === skillId
+					);
+					console.log(`- skillId ${skillId} → skill:`, skill);
+					return skill ? skill.skill_name : null;
+				})
+				.filter(Boolean) as string[];
+
+			console.log("- 최종 skill_names:", skillNames);
+
+			if (skillNames.length > 0) {
+				filters.skill_names = skillNames;
+			}
 		}
 
 		return filters;
@@ -72,9 +91,9 @@ export const createComputedActions = (get: () => FilterStore) => ({
 		return basicText;
 	},
 
-	// 필터 타입별 표시 텍스트 생성
+	// FilterButtonsRow 필터 타입별 텍스트 생성: FilterButtonsRow에서 id값 받아옴
 	getFilterDisplayText: (filterType: string): string => {
-		const state = get();
+		const state = get(); //createFilterActions에서 가져옴 ex.toggleCompany
 
 		switch (filterType) {
 			case "company":
@@ -99,11 +118,22 @@ export const createComputedActions = (get: () => FilterStore) => ({
 				if (state.selectedSkills.length === 0) {
 					return "기술 스택";
 				} else if (state.selectedSkills.length === 1) {
-					const skillName = getSkillNameById(state.selectedSkills[0]);
-					return skillName;
+					const skill = state.popularSkillsOptions.find(
+						(s) => s.skill_id === state.selectedSkills[0]
+					);
+					console.log("- 첫 번째 스킬 찾기:", skill);
+					const result = skill ? skill.skill_name : "기술 스택";
+					console.log("- 결과:", result);
+					return result;
 				} else {
-					const firstSkillName = getSkillNameById(state.selectedSkills[0]);
-					return `${firstSkillName} 외 ${state.selectedSkills.length - 1}개`;
+					const skill = state.popularSkillsOptions.find(
+						(s) => s.skill_id === state.selectedSkills[0]
+					);
+					console.log("- 첫 번째 스킬 찾기:", skill);
+					const firstSkillName = skill ? skill.skill_name : "기술 스택";
+					const result = `${firstSkillName} 외 ${state.selectedSkills.length - 1}개`;
+					console.log("- 결과:", result);
+					return result;
 				}
 
 			case "location":

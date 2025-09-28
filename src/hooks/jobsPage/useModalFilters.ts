@@ -81,9 +81,10 @@ export function useModalFilters(): UseBasicJobsWithFiltersReturn {
 
 			// 스킬 필터 - 스킬명으로 검색
 			if (filters.skill_names && filters.skill_names.length > 0) {
-				const jobSkills = (job as any).skill_names || [];
+				// skills 배열에서 skill_name 추출
+				const jobSkillNames = job.skills.map((skill) => skill.skill_name);
 				const hasMatchingSkill = filters.skill_names.some((skillName: string) =>
-					jobSkills.includes(skillName)
+					jobSkillNames.includes(skillName)
 				);
 				if (!hasMatchingSkill) {
 					return false;

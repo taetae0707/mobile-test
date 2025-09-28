@@ -65,6 +65,7 @@ export type RecruitmentApiResponse = ApiResponse<RecruitmentResponse[]>;
 
 export interface RecruitmentFilters {
 	skill_ids?: number[];
+	skill_names?: string[];
 	experience_years?: string[];
 	position_titles?: string[];
 	position_ids?: number[];

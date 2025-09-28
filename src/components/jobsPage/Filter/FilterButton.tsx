@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
+
 interface FilterButtonProps {
 	title: string;
-	options: Array<{ id: string | number; name: string }>;
+	options: Array<{ id: string | number; name: string; logo_url?: string }>;
 	selectedItems: (string | number)[];
 	onToggle: (item: string | number, itemName?: string) => void;
 	showSelectAllOption?: boolean;
@@ -16,6 +18,7 @@ export function FilterButton({
 	showSelectAllOption = false,
 }: FilterButtonProps) {
 	const isPositionType = title === "직군선택";
+	const isSkillType = title === "인기스택";
 
 	//전체 선택인지 확인
 	const isAllSelected =
@@ -23,7 +26,11 @@ export function FilterButton({
 
 	//어떤 옵션이 선택되었는지 확인하는 함수: true or false 반환
 	//화면에 어떻게 보일지를 결정
-	const isFilterSelected = (option: { id: string | number; name: string }) => {
+	const isFilterSelected = (option: {
+		id: string | number;
+		name: string;
+		logo_url?: string;
+	}) => {
 		if (option.id === "all") return isAllSelected;
 		return isPositionType
 			? selectedItems.includes(option.id) //직군선택일 경우 ID로 비교
@@ -32,8 +39,12 @@ export function FilterButton({
 
 	//필터 클릭 시, onToggle실행하는 함수
 	//클릭한 필터의 속성을 onToggle로 전달하면 -> toggleCompany 등 함수 실행(useFilterStore의 함수)
-	const handleFilterClick = (option: { id: string | number; name: string }) => {
-		if (isPositionType) {
+	const handleFilterClick = (option: {
+		id: string | number;
+		name: string;
+		logo_url?: string;
+	}) => {
+		if (isPositionType || isSkillType) {
 			onToggle(option.id, option.name);
 		} else {
 			onToggle(option.name);
@@ -52,14 +63,18 @@ export function FilterButton({
 					? selectedItems.includes(opt.id) //id로 선택한 필터목록에 있는지 확인
 					: selectedItems.includes(opt.name); //name으로 ..
 
-					//
+				//
 				if (!isSelected) handleFilterClick(opt); //모든 옵션 선택
 			});
 		}
 	};
 
 	// 옵션 클릭 핸들러
-	const handleClick = (option: { id: string | number; name: string }) => {
+	const handleClick = (option: {
+		id: string | number;
+		name: string;
+		logo_url?: string;
+	}) => {
 		if (option.id === "all") {
 			handleSelectAll();
 		} else {
@@ -83,12 +98,26 @@ export function FilterButton({
 					<button
 						key={option.id}
 						onClick={() => handleClick(option)}
-						className={`px-4 py-2 text-sm font-medium rounded-lg border transition-colors ${
+						className={`flex items-center gap-3 px-4 py-2 text-sm font-medium rounded-lg border transition-colors ${
 							isFilterSelected(option)
 								? "bg-blue-50 text-blue-700 border-blue-300"
 								: "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
 						}`}>
-						{option.name}
+						{option.logo_url && (
+							<div className="w-6 h-6 relative flex-shrink-0">
+								<Image
+									src={option.logo_url}
+									alt={option.name}
+									width={24}
+									height={24}
+									className="object-contain"
+									onError={(e) => {
+										console.error(`이미지 로드 실패: ${option.name}`);
+									}}
+								/>
+							</div>
+						)}
+						<span>{option.name}</span>
 					</button>
 				))}
 			</div>

@@ -40,10 +40,22 @@ export const createFilterActions = (set: any, get: () => FilterStore) => ({
 	},
 
 	toggleSkill: (skillId: number) => {
-		const { selectedSkills } = get();
+		const { selectedSkills, popularSkillsOptions } = get();
+
+		// 🔍 디버깅: 스킬 선택 시 확인
+		console.log("🔍 [DEBUG] toggleSkill 호출:");
+		console.log("- 선택된 skillId:", skillId);
+		console.log("- 현재 selectedSkills:", selectedSkills);
+		console.log(
+			"- popularSkillsOptions에서 해당 스킬 찾기:",
+			popularSkillsOptions.find((s) => s.skill_id === skillId)
+		);
+
 		const newSelected = selectedSkills.includes(skillId)
 			? selectedSkills.filter((s) => s !== skillId) //선택값이 기존 목록에 잇으면, 기존 목록에서 제거
 			: [...selectedSkills, skillId]; //선택값이 기존 목록에 없으면, 새로운 선택값을 추가
+
+		console.log("- 새로운 selectedSkills:", newSelected);
 		set({ selectedSkills: newSelected });
 	},
 

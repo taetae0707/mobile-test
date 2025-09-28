@@ -4,6 +4,11 @@ export interface FilterState {
 	// 동적 필터 옵션들 (jobs 데이터에서 추출)
 	experienceOptions: string[];
 	locationOptions: string[];
+	popularSkillsOptions: Array<{
+		skill_id: number;
+		skill_name: string;
+		logo_url: string;
+	}>;
 
 	// 기본 필터 상태 (BasicFilter에서 사용)
 	basicPositionId: number; // 기본값: 1 (Web Frontend)

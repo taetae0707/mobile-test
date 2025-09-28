@@ -2,13 +2,12 @@
 
 import { useFilterStore } from "@store/filters";
 // import { useBasicPositionsStore } from "@store/basicPositions";
-import { FilterButton, PopularSkillsButton } from "@components/jobsPage/Filter";
+import { FilterButton } from "@components/jobsPage/Filter";
 import {
 	usePositionsQuery,
 	useSkillsQuery,
 	useParentCompaniesQuery,
 } from "@queries/index";
-import { POPULAR_SKILLS_CONFIG } from "@constants/popularSkills";
 // interface FilterModalProps {
 // 	onFiltersApplied?: () => void;
 // }
@@ -19,6 +18,7 @@ export function FilterModal() {
 		activeModalType,
 		experienceOptions,
 		locationOptions,
+		popularSkillsOptions,
 		selectedPositions,
 		selectedCompanies,
 		selectedExperience,
@@ -77,7 +77,7 @@ export function FilterModal() {
 		name: location,
 	}));
 
-	// popularSkills는 이미 PopularSkillData 형태이므로 그대로 사용
+	// 인기 스킬 데이터는 이미 popularSkillsOptions에서 가져옴
 
 	return (
 		<div className="fixed inset-0 z-50 overflow-y-auto">
@@ -160,11 +160,16 @@ export function FilterModal() {
 									onToggle={(item) => toggleLocation(item as string)}
 									showSelectAllOption={true}
 								/>
-								<PopularSkillsButton
+								<FilterButton
 									title="인기스택"
-									skills={POPULAR_SKILLS_CONFIG}
-									selectedSkills={selectedSkills}
-									onToggle={toggleSkill}
+									options={popularSkillsOptions.map((skill) => ({
+										id: skill.skill_id,
+										name: skill.skill_name,
+										logo_url: skill.logo_url,
+									}))}
+									selectedItems={selectedSkills}
+									onToggle={(item) => toggleSkill(item as number)}
+									showSelectAllOption={true}
 								/>
 							</>
 						)}

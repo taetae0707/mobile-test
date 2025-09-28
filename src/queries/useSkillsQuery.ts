@@ -1,10 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { SkillsApi } from "@api/companies/skills-api";
 import { SkillResponse } from "@api/types/skill.types";
-import {
-	POPULAR_SKILLS_CONFIG,
-	PopularSkillConfig,
-} from "@constants/popularSkills";
 
 export function useSkillsQuery() {
 	return useQuery<SkillResponse[]>({
