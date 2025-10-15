@@ -43,7 +43,6 @@ export const createFilterActions = (set: any, get: () => FilterStore) => ({
 		const { selectedSkills, popularSkillsOptions } = get();
 
 		// 🔍 디버깅: 스킬 선택 시 확인
-		console.log("🔍 [DEBUG] toggleSkill 호출:");
 		console.log("- 선택된 skillId:", skillId);
 		console.log("- 현재 selectedSkills:", selectedSkills);
 		console.log(

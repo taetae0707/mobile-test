@@ -1,8 +1,5 @@
 "use client";
 
-import styled from "@emotion/styled";
-import isPropValid from "@emotion/is-prop-valid";
-import { Card } from "@mui/material";
 // import { CardActionArea } from '@mui/material'
 // import { useNavigate } from 'react-router-dom'
 import { useProfileCard } from "@hooks/landingPage/useProfileCard";
@@ -13,6 +10,7 @@ import { ModalGuide } from "@components/common/modal";
 import { modalData } from "@components/common/modal/modalGuide-data";
 import { ProfileData } from "@types";
 import { useEffect } from "react";
+import Image from "next/image";
 
 interface ProfileCardProps {
 	profileData: ProfileData;
@@ -32,38 +30,88 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
 
 	return (
 		<div>
-			<Container
-				isVacation={profileData.is_vacation}
-				onClick={() => handleProfileClick(profileData)}
-				className="profileCardContainer">
+			<div
+				className={`bg-gradient-to-br from-gray-500 to-black shadow-2xl rounded-2xl w-full h-96 p-8 relative overflow-hidden flex flex-col justify-center text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-3xl group ${profileData.is_vacation ? "filter blur-sm bg-gray-300/50 pointer-events-none" : ""}`}
+				style={{ paddingTop: "12%" }}>
+				{/* 호버 시 회색 오버레이 */}
+				<div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
 				{profileData.is_vacation && (
-					<TextBlurOverlay>
-						<div style={{ fontSize: "100px" }}>🏖</div>
+					<div className="text-6xl break-keep absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center font-bold z-10">
+						<div className="text-8xl">🏖</div>
 						휴가를 떠났어요 :D
-					</TextBlurOverlay>
+					</div>
 				)}
 
-				<ProfilePictureWrapper>
-					<ProfileImage
+				{/* 회사 타이틀 */}
+				<div
+					className="absolute top-2 right-4 bg-white text-black px-4 py-2 rounded-t-3xl rounded-br-3xl text-md font-bold uppercase shadow-lg border-2 border-gray-400"
+					style={{ marginTop: "2%" }}>
+					{profileData.company1 || "Company"}
+				</div>
+
+				{/* 프로필 이미지와 이름 */}
+				<div className="flex flex-col items-center ">
+					<Image
 						src={profileData.profile_image}
 						alt={"profile-image"}
+						width={120}
+						height={120}
+						className="object-cover rounded-full border-[3px] border-white/20 mb-4"
 					/>
-				</ProfilePictureWrapper>
-				<ProfileIntroContainer>
-					<ProfileName>{profileData.name}</ProfileName>
-					<ProfileField>{profileData.field}</ProfileField>
+					<div className="text-white text-3xl font-bold leading-tight mb-2 text-center">
+						{profileData.name}
+					</div>
+				</div>
 
-					<ProfileHistory>
-						<ProfileHistoryItem>{profileData.company1}</ProfileHistoryItem>
-						<ProfileHistoryItem>{profileData.job1}</ProfileHistoryItem>
-					</ProfileHistory>
+				{/* 경력 정보 */}
+				<div className="flex-1 flex flex-col gap-3">
+					<div className="text-white/90 text-base font-semibold leading-snug text-center">
+						{profileData.field}
+					</div>
 
-					<ProfileHistory>
-						<ProfileHistoryItem>{profileData.company2}</ProfileHistoryItem>
-						<ProfileHistoryItem>{profileData.job2}</ProfileHistoryItem>
-					</ProfileHistory>
-				</ProfileIntroContainer>
-			</Container>
+					<div
+						className="flex flex-wrap gap-2 mt-4"
+						style={{ justifyContent: "center" }}>
+						{profileData.company1 && (
+							<div className="bg-white/10 border border-white/30 text-white px-2 py-1 rounded-xl text-xs font-medium backdrop-blur-sm">
+								{profileData.company1} 개발자
+							</div>
+						)}
+						{profileData.company2 && (
+							<div className="bg-white/10 border border-white/30 text-white px-2 py-1 rounded-xl text-xs font-medium backdrop-blur-sm">
+								{profileData.company2} 개발자
+							</div>
+						)}
+						{profileData.job1 && (
+							<div className="bg-white/10 border border-white/30 text-white px-2 py-1 rounded-xl text-xs font-medium backdrop-blur-sm">
+								{profileData.job1}
+							</div>
+						)}
+						{profileData.job2 && (
+							<div className="bg-white/10 border border-white/30 text-white px-2 py-1 rounded-xl text-xs font-medium backdrop-blur-sm">
+								{profileData.job2}
+							</div>
+						)}
+					</div>
+				</div>
+
+				{/* 호버 시 나타나는 질문하기 버튼 */}
+				{!profileData.is_vacation && (
+					<div
+						className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
+						style={{ width: "70%" }}>
+						<button
+							onClick={(e) => {
+								e.stopPropagation();
+								handleProfileClick(profileData);
+							}}
+							className="bg-white hover:bg-gray-100 text-black px-8 py-4 rounded-full font-semibold shadow-xl transform hover:scale-105 transition-all duration-200 text-xl whitespace-nowrap w-50"
+							style={{ width: "100%" }}>
+							질문하기
+						</button>
+					</div>
+				)}
+			</div>
 			{selectedCardKey && (
 				<ModalGuide
 					type="MobileInstructions"
@@ -88,193 +136,3 @@ export function ProfileCard({ profileData }: ProfileCardProps) {
 		</div>
 	);
 }
-
-const Container = styled(Card, {
-	shouldForwardProp: (prop) => isPropValid(prop) && prop !== "isVacation",
-})<{ isVacation: boolean }>`
-	box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.12);
-
-	gap: 2rem;
-	width: 100%;
-	height: 428px;
-	padding: 30px 0;
-	position: relative;
-	overflow: hidden;
-	margin-top: 1.5rem;
-	border-radius: 5%;
-	display: flex;
-	flex-direction: column;
-
-	@media (max-width: 1320px) {
-		height: 400px;
-	}
-
-	${({ isVacation }) =>
-		isVacation &&
-		`
-    filter: blur(5px);
-    -webkit-filter: blur(5px);
-    background: rgba(255, 255, 255, 0.5);
-    pointer-events: none;
-  `} @media (
-	max-width: 1024px) {
-		height: 80%;
-		scroll-snap-align: start;
-		/* flex: 0 0 80%; */
-		flex-direction: row;
-		align-items: center;
-		justify-content: flex-start;
-		width: ${getMobileVw(300)};
-		overflow: visible;
-		padding: 1.125rem ${getMobileVw(16)};
-		gap: ${getMobileVw(16)};
-		border-radius: 8px;
-		box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.12);
-		margin-top: 1rem;
-	}
-
-	@media (max-width: 530px) {
-		height: 130px;
-	}
-
-	cursor: pointer;
-`;
-
-const ProfilePictureWrapper = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	overflow: hidden;
-
-	@media (max-width: 1024px) {
-		width: ${getMobileVw(60)};
-		height: ${getMobileVw(60)};
-		border-radius: 50%;
-		overflow: hidden;
-		flex-shrink: 0;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-`;
-
-const ProfileImage = styled.img`
-	width: 161px;
-	height: 161px;
-	object-fit: contain;
-	border-radius: 100%;
-
-	@media (max-width: 1320px) {
-		width: 130px;
-		height: 130px;
-	}
-
-	@media (max-width: 1024px) {
-		width: 84%;
-		height: 84%;
-		object-fit: cover;
-	}
-	@media (max-width: 520px) {
-		width: 100%;
-		height: 100%;
-	}
-`;
-
-const ProfileIntroContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-
-	@media (max-width: 1024px) {
-		align-items: flex-start;
-		justify-content: center;
-		gap: 8px;
-	}
-`;
-
-const ProfileName = styled.div`
-	color: #0e0e0e;
-
-	font-size: 24px;
-	font-style: normal;
-	font-weight: 800;
-	line-height: 150%; /* 36px */
-
-	@media (max-width: 1320px) {
-		font-size: 1.5rem;
-	}
-
-	@media (max-width: 1024px) {
-		font-size: 1.2rem;
-	}
-	@media (max-width: 520px) {
-		font-size: 1rem;
-	}
-`;
-
-const ProfileField = styled.div`
-	color: #068372;
-
-	font-size: 18px;
-	font-style: normal;
-	font-weight: 700;
-	line-height: 150%; /* 27px */
-
-	@media (max-width: 1320px) {
-		font-size: 1.3rem;
-	}
-
-	@media (max-width: 1024px) {
-		/* font-size: 0.875rem; */
-		font-size: 1rem;
-	}
-	@media (max-width: 520px) {
-		font-size: 0.75rem;
-	}
-`;
-
-const ProfileHistory = styled.div`
-	margin-top: 10%;
-	font-size: 13px;
-	font-weight: bold;
-	color: #727478;
-
-	height: 30px;
-
-	@media (max-width: 1024px) {
-		height: auto;
-		margin-top: 0;
-		display: flex;
-		gap: 5px;
-	}
-`;
-
-const ProfileHistoryItem = styled.div`
-	font-size: 16px;
-	font-weight: 500;
-	text-align: center;
-
-	/* @media (max-width: 1320px) {
-    font-size: 0.9rem;
-  } */
-
-	@media (max-width: 1024px) {
-		font-size: 10px;
-		height: auto;
-		text-align: left;
-		line-height: 1.3;
-	}
-`;
-
-const TextBlurOverlay = styled.div`
-	font-size: 24px;
-	word-break: keep-all;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	text-align: center;
-	font-weight: bold;
-	z-index: 2;
-`;

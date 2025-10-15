@@ -10,7 +10,7 @@ import {
 	FilterModal,
 } from "@components/jobsPage/Filter";
 import { useFilterStore } from "@store/filters";
-import { POPULAR_SKILLS_CONFIG } from "@constants/popularSkills";
+// import { POPULAR_SKILLS_CONFIG } from "@constants/popularSkills";
 import { RecruitmentResponse } from "@api/types/job.types";
 import { CompanyParentResponse } from "@api/types/company.types";
 import { useEffect } from "react";
