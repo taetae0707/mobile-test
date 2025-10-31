@@ -1,6 +1,7 @@
 import { CompanyParentResponse } from "@api/types/company.types";
 import Image from "next/image";
 import { useState } from "react";
+import Link from "next/link";
 import { CircleBorder } from "@jobsPage/CompanyNav/CircleBorder";
 
 interface CompanyCategoryProps {
@@ -26,8 +27,8 @@ export function CompanyNavIcon({
 	};
 
 	return (
-		<button
-			onClick={() => onClick(company)}
+		<Link
+			href={`/jobs/${company.english_name}`}
 			className={`
 				flex-shrink-0 flex flex-col items-center gap-4 cursor-pointer 
 				transition-all duration-200 hover:scale-110
@@ -75,6 +76,6 @@ export function CompanyNavIcon({
 			`}>
 				{company.name}
 			</span>
-		</button>
+		</Link>
 	);
 }

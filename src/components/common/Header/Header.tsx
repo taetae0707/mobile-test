@@ -24,13 +24,15 @@ export function Header() {
                         px-[100px] max-md:px-[50px] max-sm:px-[24px]
                         max-sm:h-[46px]
     ">
-				<NextImage
-					src={"/logo.png"}
-					alt={"로고이미지"}
-					width={80}
-					height={80}
-					className={"max-md:w-[50px] max-md:h-[33px] cursor-pointer"}
-				/>
+				<Link href="/">
+					<NextImage
+						src={"/logo.png"}
+						alt={"로고이미지"}
+						width={80}
+						height={80}
+						className={"max-md:w-[50px] max-md:h-[33px] cursor-pointer"}
+					/>
+				</Link>
 				<div className="flex justify-start items-center gap-8 max-sm:gap-[12px]">
 					<div
 						className={"max-sm:hidden flex justify-center items-center gap-8"}>
@@ -67,13 +69,15 @@ export function Header() {
 					className={
 						"flex justify-between px-[24px] items-center h-[45px] w-full"
 					}>
-					<NextImage
-						src={"/logo.png"}
-						alt={"로고이미지"}
-						width={100}
-						height={65}
-						className={"max-md:w-[50px] max-md:h-[33px] cursor-pointer"}
-					/>
+					<Link href="/">
+						<NextImage
+							src={"/logo.png"}
+							alt={"로고이미지"}
+							width={100}
+							height={65}
+							className={"max-md:w-[50px] max-md:h-[33px] cursor-pointer"}
+						/>
+					</Link>
 					<NextImage
 						src={"/images/close-icon.png"}
 						alt={"로고이미지"}

@@ -12,7 +12,6 @@ import {
 import { useFilterStore } from "@store/filters";
 // import { POPULAR_SKILLS_CONFIG } from "@constants/popularSkills";
 import { RecruitmentResponse } from "@api/types/job.types";
-import { CompanyParentResponse } from "@api/types/company.types";
 import { useEffect } from "react";
 
 export default function JobsPage() {
@@ -20,8 +19,6 @@ export default function JobsPage() {
 		companies,
 		loading: companiesLoading,
 		error: companiesError,
-		selectedCompany,
-		handleCompanySelect,
 	} = useCompanyCategories();
 
 	const {
@@ -77,8 +74,8 @@ export default function JobsPage() {
 		return (
 			<CompanyNavList
 				companies={companies}
-				selectedCompany={selectedCompany}
-				onCompanySelect={handleCompanySelect}
+				selectedCompany={null}
+				onCompanySelect={() => {}}
 				loading={companiesLoading}
 			/>
 		);
