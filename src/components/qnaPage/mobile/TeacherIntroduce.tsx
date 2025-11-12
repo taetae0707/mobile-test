@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider";
 
-import { EditPencilButton } from "@components/common/button/editButton/EditPencilButton";
+import { EditPencilButton } from "@components/Common/button/editButton/EditPencilButton";
 import { useEditAuthority, useMentoProfileEdit } from "@hooks/qnaPage";
 import { MentoDescriptionArea } from "@qnaPage/web/MentoDescriptionArea.tsx";
 

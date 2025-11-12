@@ -1,6 +1,6 @@
 "use client";
 
-import { ProfileBadge } from "@components/common/badge";
+import { ProfileBadge } from "@components/Common/badge";
 import { AccountType, QnaAskerType } from "@types";
 import { GetQnaListResponse } from "api/types/qna.type";
 import styled from "@emotion/styled";

@@ -1,9 +1,9 @@
 import { GetQnaListResponse } from "api/types/qna.type";
-import ModalReference from "@components/common/modal/ModalReference.tsx";
+import ModalReference from "@components/Common/modal/ModalReference.tsx";
 import styled from "@emotion/styled";
 import { QuestionCard } from "@components/qnaPage/web/QuestionCard.tsx";
 import { useState } from "react";
-import { DebouncedButton } from "@components/common/button";
+import { DebouncedButton } from "@components/Common/button";
 import { RequestApi } from "api/request-api.ts";
 import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider.tsx";
 import { useToastMessageStore } from "@toast";

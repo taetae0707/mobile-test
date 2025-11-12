@@ -8,8 +8,8 @@ import { GetQnaListResponse } from "api/types/qna.type";
 import { useAccountStore } from "@store/account";
 // import { getMobileVw } from '@utils/responsive'
 import { useQuestionEdit, useIsOwner } from "@hooks/qnaPage/";
-import { EditButton } from "@components/common/button/editButton/EditButton";
-import { EditActionButtons } from "@components/common/button/editButton/EditActionButtons";
+import { EditButton } from "@components/Common/button/editButton/EditButton";
+import { EditActionButtons } from "@components/Common/button/editButton/EditActionButtons";
 import React, { useState } from "react";
 
 type QuestionCardProps = {

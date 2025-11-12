@@ -2,7 +2,7 @@
 
 import styled from "@emotion/styled";
 import { ProfileCard } from "@components/profileCards/ProfileCard";
-import { ProfileBadge } from "@components/common/badge";
+import { ProfileBadge } from "@components/Common/badge";
 import { useProfileList } from "@hooks/landingPage/useProfileList";
 import { getMobileVw } from "@utils/responsive";
 import { useSwiper } from "@hooks/landingPage/useSwiper";

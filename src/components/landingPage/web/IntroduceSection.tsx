@@ -3,10 +3,10 @@
 import { LandingInfoCard } from "@landingPage/web/LandingInfoCard.tsx";
 import styled from "@emotion/styled";
 // import { PoomasiGuideModal } from "@landingPage/web/PoomasiGuideModal.tsx";
-// import { CommonGuideModal } from "@components/common/modal/CommonGuideModal.tsx";
-import { modalData } from "@components/common/modal/modalGuide-data";
+// import { CommonGuideModal } from "@components/Common/modal/CommonGuideModal.tsx";
+import { modalData } from "@components/Common/modal/modalGuide-data";
 import { useState } from "react";
-import { ModalGuide } from "@components/common/modal";
+import { ModalGuide } from "@components/Common/modal";
 
 import iconHowToUse from "@images/landingPage/icon-howToUse.png";
 import iconRule from "@images/landingPage/icon-rule.png";

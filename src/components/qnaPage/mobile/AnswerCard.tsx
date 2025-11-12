@@ -8,8 +8,8 @@ import dayjs from "dayjs";
 import { getMobileVw } from "@utils/responsive.ts";
 import { GetQnaListResponse } from "@api/types/qna.type";
 import { useAnswerEdit, useEditAuthority } from "@hooks/qnaPage/index";
-import { EditButton } from "@components/common/button/editButton/EditButton";
-import { EditActionButtons } from "@components/common/button/editButton/EditActionButtons";
+import { EditButton } from "@components/Common/button/editButton/EditButton";
+import { EditActionButtons } from "@components/Common/button/editButton/EditActionButtons";
 
 interface AnswerCardProps {
   question: GetQnaListResponse;

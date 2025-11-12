@@ -1,13 +1,13 @@
-import { Footer } from "@components/common/Footer/Footer";
-import { Header } from "@components/common/Header/Header";
-import { CommonProvider } from "@components/common/CommonProvider.tsx";
+import { Footer } from "@components/Common/Footer/Footer";
+import { Header } from "@components/Common/Header/Header";
+import { CommonProvider } from "@components/Common/CommonProvider.tsx";
 import { suitFont } from "./font.ts";
 import "./globals.css";
 import { ServiceWorkerUnregister } from "../ServiceWorkerUnregister.tsx";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import GoogleAnalytics from "@components/common/googleAnalytics/GoogleAnalytics.tsx";
+import GoogleAnalytics from "@components/Common/googleAnalytics/GoogleAnalytics.tsx";
 import { Metadata } from "next";
 import Script from "next/script";
 

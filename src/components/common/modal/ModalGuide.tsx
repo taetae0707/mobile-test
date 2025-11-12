@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import styled from "@emotion/styled";
-import ModalReference from "@components/common/modal/ModalReference.tsx";
-import { modalData } from "@components/common/modal/modalGuide-data";
+import ModalReference from "@components/Common/modal/ModalReference.tsx";
+import { modalData } from "@components/Common/modal/modalGuide-data";
 import NextImage from "next/image";
 import { useEffect } from "react";
 

@@ -3,8 +3,8 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { MobileLandingInfoCard } from "@landingPage/mobile/Mobile-LandingInfoCard";
-import { ModalGuide } from "@components/common/modal/ModalGuide";
-import { modalData } from "@components/common/modal/modalGuide-data";
+import { ModalGuide } from "@components/Common/modal/ModalGuide";
+import { modalData } from "@components/Common/modal/modalGuide-data";
 
 import iconHowToUse from "@images/landingPage/icon-howToUse.png";
 import iconRule from "@images/landingPage/icon-rule.png";

@@ -4,7 +4,7 @@ import {
 	CareerYearType,
 	SPECIFIC_TYPE_OPTIONS,
 } from "@types";
-import { DebouncedButton } from "@components/common/button";
+import { DebouncedButton } from "@components/Common/button";
 import { useCallback, useState } from "react";
 import { useToastMessageStore } from "@toast";
 import { useAccountStore } from "@store/account";
@@ -12,11 +12,11 @@ import styled from "@emotion/styled";
 import { getMobileVw } from "@utils/responsive";
 import optionCheck from "@assets/images/option-check.svg";
 import { colors } from "@styles/foundation/color";
-import { Seperator } from "@components/common/seperator/Seperator";
+import { Seperator } from "@components/Common/seperator/Seperator";
 import { useMobileStore } from "@store/useMobileStore.ts";
 // import { useKeyboardHeight } from "@hooks/qnaPage/usekeyboardHeight";
 import { useDetailPageContext } from "@hooks/qnaPage/provider/DetailPageProvider";
-import { CommonSelect } from "@components/common/CommonSelect/CommonSelect";
+import { CommonSelect } from "@components/Common/CommonSelect/CommonSelect";
 import { usePostQuestion } from "api/posts/usePostQuestion";
 import { useParams } from "next/navigation";
 import Image from "next/image";
