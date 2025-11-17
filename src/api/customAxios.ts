@@ -53,8 +53,11 @@ AxiosResponse 안에는 이런 정보가 들어있어요:
 👉 url에 GET 요청을 보낸 뒤, 나중에(T) 타입의 데이터를 포함한 응답이 오겠다는 약속(Promise)을 반환한다.
 */
 
+const baseURL =
+	process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "https://api.poomasi.kr/api";
+
 const customAxios: CustomInstance = axios.create({
-	baseURL: process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "/api/proxy",
+	baseURL: baseURL,
 	headers: {
 		"Content-Type": "application/json",
 	},
